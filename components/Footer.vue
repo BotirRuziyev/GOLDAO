@@ -112,6 +112,10 @@
           color: #141824;
           text-decoration: none;
           white-space: nowrap;
+          transition: 0.3s;
+          &:hover {
+            text-decoration: underline;
+          }
         }
       }
       .messengers {
