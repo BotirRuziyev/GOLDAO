@@ -73,13 +73,17 @@
                 <span class="input_label">Срок инвестиций (месяцев)</span>
               </div>
               <div class="d-flex justify-content-center">
-                <button class="calculate_income_btn" @click="statistic = true">Рассчитать доход</button>
+                <button class="calculate_income_btn user-select-none" @click="statistic = true">
+                  Рассчитать доход
+                </button>
               </div>
             </form>
             <div class="income_statistic" :class="!statistic ? 'd-none' : ''">
               <div class="income_statistic_item">
                 <div class="item_val text-center">600 000 ₽</div>
-                <div class="item_label">Сумма ваших инвестиций на покупку 50 монет</div>
+                <div class="item_label">
+                  Сумма ваших инвестиций <span class="d-sm-inline d-none">на покупку 50 монет</span>
+                </div>
               </div>
               <div class="income_statistic_item">
                 <div class="item_val text-center">6000 ₽</div>
@@ -89,9 +93,11 @@
                 <div class="item_val text-center">15% годовых</div>
                 <div class="item_label">Доходность</div>
               </div>
-              <div class="income_statistic_btn d-flex">
-                <button class="reset_btn" @click="statistic = false">Сбросить значения</button>
-                <button class="more_details_btn">Подробнее</button>
+              <div class="income_statistic_btn d-flex flex-md-row flex-column">
+                <button class="reset_btn order-md-1 order-2 user-select-none" @click="statistic = false">
+                  Сбросить значения
+                </button>
+                <button class="more_details_btn order-md-2 order-1 user-select-none">Подробнее</button>
               </div>
             </div>
           </div>
@@ -325,6 +331,13 @@ export default {
             line-height: 122%;
             text-align: center;
             color: var(--white);
+            user-select: none;
+            transition: 0.3s;
+
+            &:hover {
+              background: var(--yellow);
+              color: var(--white);
+            }
           }
         }
       }
@@ -370,9 +383,9 @@ export default {
             transition: 0.3s;
 
             &:hover {
-              background: #20263b;
+              background: var(--yellow);
               color: var(--white);
-              border-color: transparent;
+              border-color: var(--yellow);
             }
           }
           .more_details_btn {
@@ -399,8 +412,19 @@ export default {
 @media (max-width: 992px) {
   .revenue_generate {
     .revenue_generate_in {
+      gap: 17px;
+    }
+  }
+}
+@media (max-width: 768px) {
+  .revenue_generate {
+    .revenue_generate_in {
       grid-template-columns: repeat(1, 1fr);
       gap: 17px;
+      .income_calculator_wrapper {
+        max-width: 520px;
+        margin: 0 auto;
+      }
     }
   }
 }
@@ -479,6 +503,14 @@ export default {
                 line-height: 122%;
               }
             }
+            .calculate_income_btn {
+              width: 100%;
+            }
+          }
+        }
+        .income_statistic {
+          .income_statistic_item {
+            margin-bottom: 14px;
           }
         }
         .income_calculator_description {
