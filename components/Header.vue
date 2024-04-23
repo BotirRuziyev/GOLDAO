@@ -4,8 +4,7 @@
       <div class="header_in d-flex align-items-center justify-content-between">
         <div class="logo">
           <nuxt-link to="/">
-            <img class="d-xl-block d-none" src="~/assets/images/Logo.svg" alt="logosvg" />
-            <img class="d-xl-none d-block" src="~/assets/images/moblogo.svg" alt="logo" />
+            <img src="~/assets/images/Logo.svg" alt="logosvg" />
           </nuxt-link>
         </div>
         <div

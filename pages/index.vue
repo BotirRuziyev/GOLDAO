@@ -331,6 +331,13 @@ export default {
             line-height: 122%;
             text-align: center;
             color: var(--white);
+            user-select: none;
+            transition: 0.3s;
+
+            &:hover {
+              background: var(--yellow);
+              color: var(--white);
+            }
           }
         }
       }
@@ -376,9 +383,9 @@ export default {
             transition: 0.3s;
 
             &:hover {
-              background: #20263b;
+              background: var(--yellow);
               color: var(--white);
-              border-color: transparent;
+              border-color: var(--yellow);
             }
           }
           .more_details_btn {
