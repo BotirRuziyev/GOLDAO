@@ -1,10 +1,10 @@
 <template>
   <footer class="footer">
     <div class="main_container">
-      <div class="footer_in d-lg-flex justify-content-between">
+      <div class="footer_in d-lg-flex d-grid justify-content-between">
         <div class="logo text-lg-end">
-          <img class="d-lg-block d-none" src="~/assets/images/footerlogo.svg" alt="footerlogo" />
-          <img class="d-lg-none d-block" src="~/assets/images/footermoblogo.svg" alt="footermoblogo" />
+          <img class="" src="~/assets/images/footerlogo.svg" alt="footerlogo" />
+          <!-- <img class="d-lg-none d-block" src="~/assets/images/footermoblogo.svg" alt="footermoblogo" /> -->
         </div>
         <div class="menu_item">
           <div class="head">Для бизнеса</div>
@@ -13,6 +13,9 @@
           </div>
           <div class="nav_link">
             <a href="#">Расчёт с зарубежными контрагентами </a>
+          </div>
+          <div class="nav_link">
+            <a href="#"> Юридическая информация </a>
           </div>
         </div>
         <div class="menu_item">
@@ -156,29 +159,30 @@
 }
 @media (max-width: 992px) {
   .footer {
-    padding: 36px 0 100px;
-    background: var(--yellow);
+    padding: 18px 0 66px;
+    // background: var(--yellow);
     .footer_in {
+      grid-template-columns: repeat(2, 1fr);
       .logo {
         margin-bottom: 20px;
       }
       .menu_item {
         margin-bottom: 15px;
         &:last-child {
-          margin-bottom: 25px;
+          margin-bottom: 0;
         }
         .head {
           font-weight: 700;
           font-size: 18px;
           line-height: 122%;
-          color: var(--white);
+          // color: var(--white);
           margin-bottom: 5px;
           a {
             font-weight: 600;
             font-size: 24px;
             line-height: 100%;
             letter-spacing: -0.01em;
-            color: var(--white);
+            // color: var(--white);
             margin-bottom: 3px;
           }
         }
@@ -196,7 +200,7 @@
           .messenger_icon {
             svg {
               path {
-                fill: var(--white);
+                // fill: var(--white);
               }
             }
           }
@@ -208,6 +212,21 @@
 @media (max-width: 576px) {
   .footer {
     padding-top: 18px;
+    margin-top: 32px;
+    .footer_in {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 0;
+      .logo {
+        margin-bottom: 15px;
+      }
+      .menu_item {
+        .nav_link {
+          a {
+            white-space: wrap;
+          }
+        }
+      }
+    }
   }
 }
 </style>
