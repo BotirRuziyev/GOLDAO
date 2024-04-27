@@ -28,12 +28,7 @@
           <form-select label="Страна" :options="['СНГ', 'СНГ', 'СНГ']"></form-select>
         </div>
         <div class="form_control">
-          <form-input
-            label="Сумма"
-            :type="Number"
-            :value="value"
-            :mask="['(##) ####-####', '(##) #####-####']"
-          ></form-input>
+          <form-input label="Сумма" :value="value" type="text"></form-input>
         </div>
         <div class="form_control d-sm-block d-none">
           <form-select label="Валюта" :options="['Российский рубль', 'Доллар']"></form-select>

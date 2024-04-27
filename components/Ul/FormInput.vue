@@ -1,8 +1,8 @@
 <template>
   <div class="input_wrapper">
     <input
-      :value="value"
       :type="type"
+      :value="value"
       id="investmentperiod"
       @input="$emit('update:value', $event.target.value)"
       v-mask="['### ### ### ###', '### ### ### ###']"
@@ -24,10 +24,6 @@ export default {
       type: String,
       default: "",
     },
-    // mask: {
-    //   type: String,
-    //   default: "",
-    // },
     value: [Number, String],
   },
   emits: ["update:value"],

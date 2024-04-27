@@ -50,12 +50,7 @@
                       <path d="M31.8828 23H15.8828" stroke="#CFD2DD" stroke-width="1.5" />
                     </svg>
                   </button>
-                  <form-input
-                    label="Срок инвестиций (месяцев)"
-                    :value="value"
-                    :type="Number"
-                    @update:value="updatevalue"
-                  ></form-input>
+                  <form-input label="Срок инвестиций (месяцев)" :value="value" type="text"></form-input>
                   <button class="month_plus_btn" @click="value += 1">
                     <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="18.8828" cy="18" r="18" fill="#FAFAFA" />
@@ -167,9 +162,9 @@ export default {
     };
   },
   methods: {
-    updatevalue(value) {
-      this.value = Number(value);
-    },
+    // updatevalue(value) {
+    //   // this.value = Number(value);
+    // },
   },
 };
 </script>
