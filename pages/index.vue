@@ -33,32 +33,30 @@
             <div class="income_calculator_title">Калькулятор возможного дохода</div>
             <form action="#" @submit.stop.prevent="submit" :class="statistic ? 'd-none' : ''">
               <div class="form_control">
-                <select class="form-select" aria-label="Default select example">
-                  <option value="1">Российский рубль</option>
-                  <option value="2">Доллар</option>
-                </select>
-                <span class="select_label">Валюта вашей страны</span>
+                <form-select label="Валюта вашей страны" :options="options"></form-select>
               </div>
               <div class="form_control">
-                <select class="form-select" aria-label="Default select example">
-                  <option value="1">50 шт</option>
-                  <option value="2">100 шт</option>
-                  <option value="2">150 шт</option>
-                  <option value="2">200 шт</option>
-                </select>
-                <span class="select_label">Количество инвестиционных монет</span>
+                <form-select
+                  label="Количество инвестиционных монет"
+                  :options="['50 шт', '100 шт', '150 шт', '200 шт']"
+                ></form-select>
               </div>
               <div class="form_control">
-                <div class="form_control_in d-flex align-items-center">
-                  <button class="month_minus_btn" @click="month > 1 ? (month -= 1) : month">
+                <div class="form_control_in d-flex align-items-start">
+                  <button class="month_minus_btn" @click="value > 1 ? (value -= 1) : value">
                     <svg width="37" height="36" viewBox="0 0 47 46" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="23.8828" cy="23" r="23" fill="#FAFAFA" />
                       <circle cx="23.8828" cy="23" r="22.5" stroke="black" stroke-opacity="0.05" />
                       <path d="M31.8828 23H15.8828" stroke="#CFD2DD" stroke-width="1.5" />
                     </svg>
                   </button>
-                  <input v-model="month" type="number" id="investmentperiod" />
-                  <button class="month_plus_btn" @click="month += 1">
+                  <form-input
+                    label="Срок инвестиций (месяцев)"
+                    :value="value"
+                    :type="Number"
+                    @update:value="updatevalue"
+                  ></form-input>
+                  <button class="month_plus_btn" @click="value += 1">
                     <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="18.8828" cy="18" r="18" fill="#FAFAFA" />
                       <circle cx="18.8828" cy="18" r="17.5" stroke="black" stroke-opacity="0.05" />
@@ -70,7 +68,6 @@
                     </svg>
                   </button>
                 </div>
-                <span class="input_label">Срок инвестиций (месяцев)</span>
               </div>
               <div class="d-flex justify-content-center">
                 <button class="calculate_income_btn user-select-none" @click="statistic = true">
@@ -97,7 +94,9 @@
                 <button class="reset_btn order-md-1 order-2 user-select-none" @click="statistic = false">
                   Сбросить значения
                 </button>
-                <button class="more_details_btn order-md-2 order-1 user-select-none">Подробнее</button>
+                <nuxt-link class="more_details_btn order-md-2 order-1 user-select-none" to="/holders-detali">
+                  Подробнее
+                </nuxt-link>
               </div>
             </div>
           </div>
@@ -121,11 +120,15 @@
 </template>
 
 <script>
+import FormInput from "~/components/Ul/FormInput.vue";
+import FormSelect from "~/components/Ul/FormSelect.vue";
 export default {
+  components: { FormSelect, FormInput },
   data() {
     return {
-      month: 2,
+      value: 2,
       statistic: false,
+      options: ["Российский рубль", "Доллар"],
       coins: [
         {
           id: 1,
@@ -162,6 +165,11 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    updatevalue(value) {
+      this.value = Number(value);
+    },
   },
 };
 </script>
@@ -257,66 +265,13 @@ export default {
           margin: 0 auto;
           .form_control {
             margin-bottom: 16px;
-            .form-select {
-              border: 1px solid #dde4ee;
-              border-radius: 8px;
-              padding: 12px 24px;
-              font-family: var(--font-family);
-              font-weight: 400;
-              font-size: 18px;
-              line-height: 122%;
-              color: var(--black);
-              box-shadow: none;
-              margin-bottom: 8px;
-              option {
-                padding: 10px 0;
-                min-height: 50px;
-                font-family: var(--font-family);
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 122%;
-                color: var(--black);
-                box-shadow: none;
-              }
-            }
-            .select_label {
-              font-family: var(--font-family);
-              font-weight: 400;
-              font-size: 14px;
-              line-height: 93%;
-              color: var(--dark-gray);
-              padding-left: 26px;
-            }
-            .input_label {
-              display: block;
-              width: 100%;
-              font-family: var(--font-family);
-              font-weight: 400;
-              font-size: 14px;
-              line-height: 93%;
-              text-align: center;
-              color: var(--dark-gray);
-            }
+
             .form_control_in {
               gap: 14px;
               margin-bottom: 8px;
               button {
                 background: transparent;
                 border: 0;
-              }
-              #investmentperiod {
-                width: 100%;
-                border: 1px solid #dde4ee;
-                border-radius: 8px;
-                padding: 12px 24px;
-                font-family: var(--font-family);
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 122%;
-                color: var(--black);
-                &:focus {
-                  outline: none;
-                }
               }
             }
           }
@@ -389,9 +344,24 @@ export default {
             }
           }
           .more_details_btn {
+            border: 2px solid transparent;
+            border-radius: 22px;
+            padding: 11px 15px;
             background: #20263b;
-            border-color: transparent;
+            font-family: var(--font-family);
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 122%;
+            text-align: center;
             color: var(--white);
+            text-decoration: none;
+            transition: 0.3s;
+
+            &:hover {
+              background: var(--yellow);
+              color: var(--white);
+              border-color: var(--yellow);
+            }
           }
         }
       }
@@ -496,13 +466,6 @@ export default {
             margin-bottom: 16px;
           }
           form {
-            .form_control {
-              .form-select {
-                font-weight: 400;
-                font-size: 18px;
-                line-height: 122%;
-              }
-            }
             .calculate_income_btn {
               width: 100%;
             }

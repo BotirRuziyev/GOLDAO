@@ -8,16 +8,16 @@
           </nuxt-link>
         </div>
         <div
-          class="header_in_menu d-flex flex-xl-row flex-column align-items-xl-center justify-content-xl-between w-100"
+          class="header_in_menu d-flex flex-lg-row flex-column align-items-lg-center justify-content-lg-between w-100"
           :class="modal ? 'menu_active' : ''"
         >
-          <div class="close_menu d-xl-none d-flex justify-content-end">
+          <div class="close_menu d-lg-none d-flex justify-content-end">
             <button class="close_menu_btn" @click="modal = false">
               <img height="30" src="~/assets/images/icons/menu-burger-close.svg" alt="menu-burger-close" />
             </button>
           </div>
-          <nav class="nav_links d-xl-flex w-100 justify-content-between order-xl-1 order-2">
-            <div class="nav_link">
+          <nav class="nav_links d-lg-flex w-100 justify-content-between order-lg-1 order-2">
+            <div class="nav_link d-none">
               <nuxt-link to="/">Главная</nuxt-link>
             </div>
             <div class="nav_link">
@@ -29,26 +29,36 @@
             <div class="nav_link active">
               <nuxt-link to="/">Для держателей</nuxt-link>
             </div>
-            <div class="nav_link">
+            <div class="nav_link d-none">
               <nuxt-link to="/">Юридическая информация</nuxt-link>
             </div>
           </nav>
-          <div class="header_contact d-flex flex-xl-row align-item-center order-xl-2 order-1">
-            <div class="contact_link">
-              <a href="#">
-                <img src="~/assets/images/icons/message.svg" alt="messages" />
-              </a>
+          <div class="header_contact d-flex align-items-center order-lg-2 order-1">
+            <div class="region position-relative order-lg-1 order-4">
+              <button
+                class="region_btn d-flex align-items-center"
+                :class="regionmod ? 'region_btn_active' : ''"
+                @click="(regionmod = !regionmod), (langmod = false)"
+              >
+                <img src="~/assets/images/icons/region.svg" alt="region" />
+                <div class="region_val">Регион</div>
+              </button>
+              <div class="region_menu position-absolute" :class="regionmod ? 'menu_active' : ''">
+                <div
+                  class="region_option d-flex align-items-center justify-content-center"
+                  v-for="(region, i) in regionlist"
+                  :key="i"
+                  @click="(regionmod = !regionmod), regionFun(region)"
+                >
+                  {{ region }}
+                </div>
+              </div>
             </div>
-            <div class="contact_link">
-              <a href="#">
-                <img src="~/assets/images/icons/telegram.svg" alt="telegram" />
-              </a>
-            </div>
-            <div class="lang position-relative">
+            <div class="lang position-relative order-lg-2 order-3">
               <div
                 class="language_widget d-flex align-items-center justify-content-center"
                 :class="langmod ? 'language_widget_active' : ''"
-                @click="langmod = !langmod"
+                @click="(langmod = !langmod), (regionmod = false)"
               >
                 RU
               </div>
@@ -63,12 +73,22 @@
                 </div>
               </div>
             </div>
-            <div class="login">
+            <div class="contact_link order-lg-3 order-2">
+              <a href="mailto:info@goldao.ru">
+                <img src="~/assets/images/icons/message.svg" alt="messages" />
+              </a>
+            </div>
+            <div class="contact_link order-lg-4 order-1">
+              <a href="#">
+                <img src="~/assets/images/icons/telegram.svg" alt="telegram" />
+              </a>
+            </div>
+            <div class="login d-none">
               <a href="#" class="d-flex align-items-center justify-content-center"> Войти </a>
             </div>
           </div>
         </div>
-        <button class="burger_btn d-xl-none d-flex" @click="modal = true">
+        <button class="burger_btn d-lg-none" @click="modal = true">
           <svg width="24" height="20.5" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M18 1H0" stroke="#7D7F86" stroke-width="2" />
             <path d="M18 8H0" stroke="#7D7F86" stroke-width="2" />
@@ -86,10 +106,15 @@ export default {
     return {
       modal: false,
       langmod: false,
+      regionmod: false,
       langlist: ["ENG", "RU", "UZ", "CHN", "KAZ"],
+      regionlist: ["Россия", "Узбекистан", "Германия", "Италия", "Турция"],
     };
   },
   methods: {
+    regionFun(region) {
+      document.querySelector(".region_val").innerHTML = region;
+    },
     langFun(lang) {
       document.querySelector(".language_widget").innerHTML = lang;
     },
@@ -120,7 +145,7 @@ export default {
         }
       }
       .nav_links {
-        max-width: 770px;
+        max-width: 415px;
         gap: 5px;
         .nav_link {
           display: block;
@@ -181,6 +206,85 @@ export default {
       }
       .header_contact {
         gap: 16px;
+        .region {
+          .region_btn {
+            background: var(--gray-for-background);
+            gap: 5px;
+            padding: 10px 20px 10px 12px;
+            border: 0;
+            border-radius: 22px;
+            transition: 0.3s;
+            &:hover {
+              background: var(--black);
+              img {
+                filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(44deg)
+                  brightness(103%) contrast(103%);
+              }
+              .region_val {
+                color: var(--white);
+              }
+            }
+            img {
+              transition: 0.3s;
+            }
+            .region_val {
+              font-family: var(--font-family);
+              font-weight: 600;
+              font-size: 16px;
+              line-height: 81%;
+              text-align: center;
+              color: var(--dark-gray);
+              cursor: pointer;
+              user-select: none;
+              transition: 0.3s;
+            }
+          }
+          .region_btn_active {
+            background: var(--black);
+            color: var(--white);
+            border-radius: 8px 8px 0 0;
+            img {
+              filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(44deg)
+                brightness(103%) contrast(103%);
+            }
+            .region_val {
+              color: var(--white);
+            }
+          }
+          .region_menu {
+            min-width: 100%;
+            top: 100%;
+            left: 0;
+            transform: translate(0, 50px);
+            border-radius: 0 0 8px 8px;
+            overflow: hidden;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.3s;
+            .region_option {
+              // min-width: 44px;
+              // min-height: 44px;
+              font-family: var(--second-family);
+              font-weight: 600;
+              font-size: 16px;
+              color: var(--dark-gray);
+              padding: 8px 0;
+              cursor: pointer;
+              background-color: var(--gray-for-background);
+              transition: 0.3s;
+
+              &:hover {
+                background: var(--black);
+                color: var(--white);
+              }
+            }
+          }
+          .menu_active {
+            transform: translate(0, 0);
+            opacity: 1;
+            visibility: visible;
+          }
+        }
         .contact_link {
           img {
             transition: 0.3s;
@@ -222,7 +326,7 @@ export default {
             border-radius: 8px;
             overflow: hidden;
             opacity: 0;
-            visibility: visible;
+            visibility: hidden;
             transition: 0.3s;
             .lang_option {
               min-width: 44px;
@@ -294,15 +398,10 @@ export default {
           width: 190px;
         }
       }
-      .header_contact {
-        .contact_link {
-          display: none;
-        }
-      }
     }
   }
 }
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .header {
     .header_in {
       .header_in_menu {
@@ -310,11 +409,13 @@ export default {
         min-width: 450px;
         height: 100vh;
         background: #f5f5f5;
+        flex-direction: column !important;
         position: fixed;
         top: 0;
         left: -100%;
         z-index: 999;
         padding: 30px 20px;
+        visibility: hidden;
         transition: 0.5s;
         &::before {
           content: "";
@@ -326,6 +427,9 @@ export default {
           left: 100%;
           z-index: -1;
           transition: 0.5s;
+        }
+        .close_menu_btn {
+          display: block !important;
         }
         .nav_links {
           .nav_link {
@@ -340,18 +444,33 @@ export default {
         }
         .header_contact {
           margin-bottom: 35px;
-        }
-        .header_contact {
           .contact_link {
             display: block;
+          }
+          .region {
+            .region_btn {
+              padding: 7px 10px;
+              img {
+                height: 20px;
+              }
+            }
+            .region_menu {
+              .region_option {
+                padding: 12px 0;
+              }
+            }
           }
         }
       }
       .menu_active {
         left: 0;
+        visibility: visible;
         &::before {
           background-color: rgba(0, 0, 0, 0.3);
         }
+      }
+      .burger_btn {
+        display: block !important;
       }
     }
   }
@@ -391,6 +510,21 @@ export default {
               height: 35px;
             }
           }
+          .region {
+            .region_btn {
+              .region_val {
+                font-size: 12px;
+                line-height: 7px;
+              }
+            }
+            .region_menu {
+              .region_option {
+                font-size: 12px;
+                line-height: 7px;
+                padding: 12px 0;
+              }
+            }
+          }
           .lang {
             .language_widget {
               width: 35px;
@@ -400,9 +534,11 @@ export default {
             }
             .lang_menu {
               .lang_option {
+                min-width: 35px;
+                min-height: 30px;
                 font-size: 12px;
                 line-height: 7px;
-                padding: 5px 0;
+                padding: 0;
               }
             }
           }

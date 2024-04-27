@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="menu_item">
-          <div class="head">
+          <div class="head phone_link">
             <a href="Tel:+74951234567">+7 (495) 123-45-67</a>
           </div>
           <div class="messengers d-flex">
@@ -104,6 +104,25 @@
           letter-spacing: -0.02em;
           color: var(--light-gray);
           text-decoration: none;
+          position: relative;
+          transition: 0.3s;
+          &::after {
+            content: "";
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            position: absolute;
+            bottom: calc(0);
+            left: 50%;
+            transform: translateX(-50%);
+            transition: 0.3s;
+          }
+          &:hover {
+            color: var(--black);
+            &::after {
+              width: 100%;
+            }
+          }
         }
       }
       .nav_link {
@@ -115,9 +134,24 @@
           color: #141824;
           text-decoration: none;
           white-space: nowrap;
+          position: relative;
           transition: 0.3s;
+          &::after {
+            content: "";
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            position: absolute;
+            bottom: calc(0px - 2px);
+            left: 50%;
+            transform: translateX(-50%);
+            transition: 0.3s;
+          }
           &:hover {
-            text-decoration: underline;
+            &::after {
+              width: 100%;
+            }
+            color: var(--black);
           }
         }
       }
@@ -126,6 +160,21 @@
         margin-bottom: 9px;
         .messenger_icon {
           gap: 15px;
+          a {
+            svg {
+              path {
+                transition: 0.3s;
+              }
+            }
+
+            &:hover {
+              svg {
+                path {
+                  fill: var(--black);
+                }
+              }
+            }
+          }
         }
         .email {
           a {
@@ -135,6 +184,25 @@
             line-height: 107%;
             color: var(--black);
             text-decoration: none;
+            position: relative;
+            transition: 0.3s;
+            &::after {
+              content: "";
+              width: 0;
+              height: 1px;
+              background-color: var(--black);
+              position: absolute;
+              bottom: calc(0);
+              left: 50%;
+              transform: translateX(-50%);
+              transition: 0.3s;
+            }
+            &:hover {
+              color: var(--black);
+              &::after {
+                width: 100%;
+              }
+            }
           }
         }
       }
@@ -182,8 +250,8 @@
             font-size: 24px;
             line-height: 100%;
             letter-spacing: -0.01em;
-            // color: var(--white);
             margin-bottom: 3px;
+            transition: 0.3s;
           }
         }
         .nav_link {
@@ -194,15 +262,6 @@
             font-size: 14px;
             line-height: 107%;
             color: #141824;
-          }
-        }
-        .messengers {
-          .messenger_icon {
-            svg {
-              path {
-                // fill: var(--white);
-              }
-            }
           }
         }
       }
