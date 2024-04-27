@@ -1,20 +1,15 @@
 <template>
   <div class="input_wrapper">
-    <input
-      :type="type"
-      :value="value"
-      id="investmentperiod"
-      @input="$emit('update:value', $event.target.value)"
-      v-mask="['### ### ### ###', '### ### ### ###']"
-    />
+    <input :type="type" :value="value" id="investmentperiod" @input="$emit('update:value', $event.target.value)" />
     <div class="input_label">{{ label }}</div>
   </div>
 </template>
 
 <script>
-import { mask } from "vue-the-mask";
+// import { mask } from "vue-the-mask";
+// v-mask="['### ### ### ###', '### ### ### ###']"
 export default {
-  directives: { mask },
+  // directives: { mask },
   props: {
     type: {
       type: String,
