@@ -50,7 +50,7 @@ export default {
     font-weight: 400;
     font-size: 14px;
     line-height: 93%;
-    text-align: center;
+    text-align: start;
     color: var(--dark-gray);
   }
 }
