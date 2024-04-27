@@ -1,10 +1,10 @@
 <template>
   <footer class="footer">
     <div class="main_container">
-      <div class="footer_in d-lg-flex justify-content-between">
+      <div class="footer_in d-lg-flex d-grid justify-content-between">
         <div class="logo text-lg-end">
-          <img class="d-lg-block d-none" src="~/assets/images/footerlogo.svg" alt="footerlogo" />
-          <img class="d-lg-none d-block" src="~/assets/images/footermoblogo.svg" alt="footermoblogo" />
+          <img class="" src="~/assets/images/footerlogo.svg" alt="footerlogo" />
+          <!-- <img class="d-lg-none d-block" src="~/assets/images/footermoblogo.svg" alt="footermoblogo" /> -->
         </div>
         <div class="menu_item">
           <div class="head">Для бизнеса</div>
@@ -13,6 +13,9 @@
           </div>
           <div class="nav_link">
             <a href="#">Расчёт с зарубежными контрагентами </a>
+          </div>
+          <div class="nav_link">
+            <a href="#"> Юридическая информация </a>
           </div>
         </div>
         <div class="menu_item">
@@ -25,7 +28,7 @@
           </div>
         </div>
         <div class="menu_item">
-          <div class="head">
+          <div class="head phone_link">
             <a href="Tel:+74951234567">+7 (495) 123-45-67</a>
           </div>
           <div class="messengers d-flex">
@@ -101,6 +104,25 @@
           letter-spacing: -0.02em;
           color: var(--light-gray);
           text-decoration: none;
+          position: relative;
+          transition: 0.3s;
+          &::after {
+            content: "";
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            position: absolute;
+            bottom: calc(0);
+            left: 50%;
+            transform: translateX(-50%);
+            transition: 0.3s;
+          }
+          &:hover {
+            color: var(--black);
+            &::after {
+              width: 100%;
+            }
+          }
         }
       }
       .nav_link {
@@ -112,9 +134,24 @@
           color: #141824;
           text-decoration: none;
           white-space: nowrap;
+          position: relative;
           transition: 0.3s;
+          &::after {
+            content: "";
+            width: 0;
+            height: 1px;
+            background-color: var(--black);
+            position: absolute;
+            bottom: calc(0px - 2px);
+            left: 50%;
+            transform: translateX(-50%);
+            transition: 0.3s;
+          }
           &:hover {
-            text-decoration: underline;
+            &::after {
+              width: 100%;
+            }
+            color: var(--black);
           }
         }
       }
@@ -123,6 +160,21 @@
         margin-bottom: 9px;
         .messenger_icon {
           gap: 15px;
+          a {
+            svg {
+              path {
+                transition: 0.3s;
+              }
+            }
+
+            &:hover {
+              svg {
+                path {
+                  fill: var(--black);
+                }
+              }
+            }
+          }
         }
         .email {
           a {
@@ -132,6 +184,25 @@
             line-height: 107%;
             color: var(--black);
             text-decoration: none;
+            position: relative;
+            transition: 0.3s;
+            &::after {
+              content: "";
+              width: 0;
+              height: 1px;
+              background-color: var(--black);
+              position: absolute;
+              bottom: calc(0);
+              left: 50%;
+              transform: translateX(-50%);
+              transition: 0.3s;
+            }
+            &:hover {
+              color: var(--black);
+              &::after {
+                width: 100%;
+              }
+            }
           }
         }
       }
@@ -156,30 +227,31 @@
 }
 @media (max-width: 992px) {
   .footer {
-    padding: 36px 0 100px;
-    background: var(--yellow);
+    padding: 18px 0 66px;
+    // background: var(--yellow);
     .footer_in {
+      grid-template-columns: repeat(2, 1fr);
       .logo {
         margin-bottom: 20px;
       }
       .menu_item {
         margin-bottom: 15px;
         &:last-child {
-          margin-bottom: 25px;
+          margin-bottom: 0;
         }
         .head {
           font-weight: 700;
           font-size: 18px;
           line-height: 122%;
-          color: var(--white);
+          // color: var(--white);
           margin-bottom: 5px;
           a {
             font-weight: 600;
             font-size: 24px;
             line-height: 100%;
             letter-spacing: -0.01em;
-            color: var(--white);
             margin-bottom: 3px;
+            transition: 0.3s;
           }
         }
         .nav_link {
@@ -192,15 +264,6 @@
             color: #141824;
           }
         }
-        .messengers {
-          .messenger_icon {
-            svg {
-              path {
-                fill: var(--white);
-              }
-            }
-          }
-        }
       }
     }
   }
@@ -208,6 +271,21 @@
 @media (max-width: 576px) {
   .footer {
     padding-top: 18px;
+    margin-top: 32px;
+    .footer_in {
+      grid-template-columns: repeat(1, 1fr);
+      gap: 0;
+      .logo {
+        margin-bottom: 15px;
+      }
+      .menu_item {
+        .nav_link {
+          a {
+            white-space: wrap;
+          }
+        }
+      }
+    }
   }
 }
 </style>
