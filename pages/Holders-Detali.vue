@@ -485,7 +485,7 @@ export default {
         }
       }
       .restore_btn {
-        grid-column: 2/4;
+        grid-column: 2/5;
       }
     }
   }

@@ -5,7 +5,7 @@
       :type="type"
       id="investmentperiod"
       @input="$emit('update:value', $event.target.value)"
-      v-mask="'### ### ### ### ### ### ### ###'"
+      v-mask="['### ### ### ###', '### ### ### ###']"
     />
     <div class="input_label">{{ label }}</div>
   </div>
@@ -24,10 +24,10 @@ export default {
       type: String,
       default: "",
     },
-    mask: {
-      type: String,
-      default: "",
-    },
+    // mask: {
+    //   type: String,
+    //   default: "",
+    // },
     value: [Number, String],
   },
   emits: ["update:value"],
