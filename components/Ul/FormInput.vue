@@ -45,12 +45,12 @@ export default {
   .input_label {
     display: block;
     width: 100%;
-    padding-left: 26px;
+    margin-left: 26px;
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 14px;
     line-height: 93%;
-    text-align: start;
+    text-align: center;
     color: var(--dark-gray);
   }
 }

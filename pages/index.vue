@@ -169,7 +169,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 // coin holders start
 .coin_holders {
   padding: 64px 0 0 0;
@@ -453,6 +453,7 @@ export default {
       }
       .income_calculator_wrapper {
         .income_calculator {
+          padding: 35px 30px;
           .income_calculator_title {
             font-weight: 600;
             font-size: 24px;
@@ -463,6 +464,32 @@ export default {
           form {
             .calculate_income_btn {
               width: 100%;
+            }
+            .form_control {
+              .form_control_in {
+                .input_wrapper {
+                  .input_label {
+                    margin-left: 24px;
+                  }
+                }
+              }
+              &:nth-child(3) {
+                .form_control_in {
+                  .input_wrapper {
+                    position: relative;
+                    margin-bottom: 23px;
+                    .input_label {
+                      width: auto;
+                      position: absolute;
+                      top: calc(100%);
+                      white-space: nowrap;
+                      margin: 0;
+                      left: 50%;
+                      transform: translateX(-50%);
+                    }
+                  }
+                }
+              }
             }
           }
         }

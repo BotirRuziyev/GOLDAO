@@ -3,7 +3,7 @@
     <select class="form-select" aria-label="Default select example">
       <option value="1" v-for="(option, index) in options" :key="index">{{ option }}</option>
     </select>
-    <span class="select_label">{{ label }}</span>
+    <div class="select_label">{{ label }}</div>
   </div>
 </template>
 
@@ -58,7 +58,7 @@ export default {
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 14px;
-    line-height: 93%;
+    line-height: 15px;
     color: var(--dark-gray);
     padding-left: 26px;
   }
