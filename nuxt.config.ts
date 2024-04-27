@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   ],
   css: ["~/assets/scss/main.scss", "bootstrap/dist/css/bootstrap.min.css"],
   plugins:[
-    '@/plugins/mask',
+    // '@/plugins/mask',
     // 'bootstrap/dist/js/bootstrap.bundle.min.js',
     // { src: "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js", mode: "client" }
   ],
