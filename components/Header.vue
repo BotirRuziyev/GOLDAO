@@ -8,15 +8,15 @@
           </nuxt-link>
         </div>
         <div
-          class="header_in_menu d-flex flex-lg-row flex-column align-items-lg-center justify-content-lg-between w-100"
+          class="header_in_menu d-flex flex-md-row flex-column align-items-md-center justify-content-md-between w-100"
           :class="modal ? 'menu_active' : ''"
         >
-          <div class="close_menu d-lg-none d-flex justify-content-end">
+          <div class="close_menu d-md-none d-flex justify-content-end">
             <button class="close_menu_btn" @click="modal = false">
               <img height="30" src="~/assets/images/icons/menu-burger-close.svg" alt="menu-burger-close" />
             </button>
           </div>
-          <nav class="nav_links d-lg-flex w-100 justify-content-between order-lg-1 order-2">
+          <nav class="nav_links d-md-flex w-100 justify-content-between order-md-1 order-2">
             <div class="nav_link d-none">
               <nuxt-link to="/">Главная</nuxt-link>
             </div>
@@ -33,8 +33,8 @@
               <nuxt-link to="/">Юридическая информация</nuxt-link>
             </div>
           </nav>
-          <div class="header_contact d-flex align-items-center order-lg-2 order-1">
-            <div class="region position-relative order-lg-1 order-4">
+          <div class="header_contact d-flex align-items-center order-md-2 order-1">
+            <div class="region position-relative order-md-1 order-4">
               <button
                 class="region_btn d-flex align-items-center"
                 :class="regionmod ? 'region_btn_active' : ''"
@@ -54,7 +54,7 @@
                 </div>
               </div>
             </div>
-            <div class="lang position-relative order-lg-2 order-3">
+            <div class="lang position-relative order-md-2 order-3">
               <div
                 class="language_widget d-flex align-items-center justify-content-center"
                 :class="langmod ? 'language_widget_active' : ''"
@@ -73,12 +73,12 @@
                 </div>
               </div>
             </div>
-            <div class="contact_link order-lg-3 order-2">
+            <div class="contact_link order-md-3 order-2">
               <a href="mailto:info@goldao.ru">
                 <img src="~/assets/images/icons/message.svg" alt="messages" />
               </a>
             </div>
-            <div class="contact_link order-lg-4 order-1">
+            <div class="contact_link order-md-4 order-1">
               <a href="#">
                 <img src="~/assets/images/icons/telegram.svg" alt="telegram" />
               </a>
@@ -88,7 +88,7 @@
             </div>
           </div>
         </div>
-        <button class="burger_btn d-lg-none" @click="modal = true">
+        <button class="burger_btn d-md-none" @click="modal = true">
           <svg width="24" height="20.5" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M18 1H0" stroke="#7D7F86" stroke-width="2" />
             <path d="M18 8H0" stroke="#7D7F86" stroke-width="2" />
@@ -401,7 +401,77 @@ export default {
     }
   }
 }
-@media (max-width: 991px) {
+@media (max-width: 992px) {
+  .header {
+    padding: 15px 0;
+    .header_in {
+      gap: 10px;
+      .logo {
+        img {
+          width: 150px;
+        }
+      }
+      .header_in_menu {
+        .nav_links {
+          max-width: 325px;
+          gap: 0;
+          .nav_link {
+            a {
+              font-size: 13px;
+              line-height: 81%;
+              padding: 7px 12px;
+            }
+          }
+        }
+        .header_contact {
+          gap: 10px;
+          .region {
+            .region_btn {
+              padding: 7px 10px;
+              .region_val {
+                font-size: 12px;
+                line-height: 71%;
+              }
+              img {
+                height: 18px;
+              }
+            }
+            .region_menu {
+              .region_option {
+                padding: 10px 0;
+                font-size: 12px;
+                line-height: 71%;
+              }
+            }
+          }
+          .lang {
+            .language_widget {
+              width: 32px;
+              height: 32px;
+              font-size: 10px;
+              line-height: 8px;
+            }
+            .lang_menu {
+              border-radius: 5px;
+              .lang_option {
+                min-width: 32px;
+                min-height: 32px;
+                font-size: 10px;
+                line-height: 8px;
+              }
+            }
+          }
+          .contact_link {
+            img {
+              height: 32px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
   .header {
     .header_in {
       .header_in_menu {
