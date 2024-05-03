@@ -84,9 +84,7 @@
     <!-- warehouse receipts end -->
 
     <!-- About start -->
-    <div class="about_more">
-      <About page_title="Узнайте больше в нашем телеграмм-боте GOLDAO" to="#" button_content="Написать" />
-    </div>
+    <About page_title="Узнайте больше в нашем телеграмм-боте GOLDAO" to="#" button_content="Написать" />
     <!-- About end -->
   </div>
 </template>
@@ -254,9 +252,6 @@ export default {
       }
     }
   }
-}
-.about_more {
-  padding-top: 64px;
 }
 .calculation_parameters {
   padding: 64px 32px 0;
@@ -565,12 +560,10 @@ export default {
       }
     }
   }
-  .about_more {
-    .about {
-      .about_in {
-        .telegram_img {
-          display: block !important;
-        }
+  .about {
+    .about_in {
+      .telegram_img {
+        display: block !important;
       }
     }
   }

@@ -486,7 +486,7 @@ export default {
         z-index: 999;
         padding: 30px 20px;
         visibility: hidden;
-        transition: 0.5s;
+        transition: 0.3s;
         &::before {
           content: "";
           width: 100%;
@@ -558,7 +558,7 @@ export default {
         width: 100%;
         max-width: 100%;
         min-width: 100%;
-        padding: 16px;
+        padding: 9px 12px;
         .close_menu {
           margin-bottom: 25px;
           .close_menu_btn {

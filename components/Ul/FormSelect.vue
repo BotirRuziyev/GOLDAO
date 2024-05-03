@@ -1,7 +1,14 @@
 <template>
   <div class="select_wrapper">
-    <select class="form-select" aria-label="Default select example">
-      <option value="1" v-for="(option, index) in options" :key="index">{{ option }}</option>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      :class="select ? 'not_selected' : ''"
+      @change="onChange()"
+    >
+      <option value="1" v-for="(option, index) in options" :key="index" :class="index == 0 ? 'd-none' : ''">
+        {{ option }}
+      </option>
     </select>
     <div class="select_label">{{ label }}</div>
   </div>
@@ -18,11 +25,26 @@ export default {
       type: String,
       default: "",
     },
+    selected: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      select: this.selected,
+    };
+  },
+  methods: {
+    onChange() {
+      this.select = false;
+    },
   },
 };
 </script>
 <style lang="scss">
 .select_wrapper {
+  width: 100%;
   .form-select {
     border: 1px solid #dde4ee;
     border-radius: 8px;
@@ -35,6 +57,7 @@ export default {
     box-shadow: none;
     margin-bottom: 8px;
     cursor: pointer;
+
     option {
       max-width: 100%;
       padding: 10px 0;
@@ -53,6 +76,16 @@ export default {
         background: var(--white);
       }
     }
+    &:disabled {
+      font-weight: 700;
+      background: var(--gray-for-background);
+      color: var(--black);
+      border: none;
+      cursor: auto;
+    }
+  }
+  .not_selected {
+    color: var(--light-gray);
   }
   .select_label {
     font-family: var(--font-family);
@@ -69,9 +102,5 @@ export default {
       }
     }
   }
-  // select:focus > option {
-  //   background: #000 !important;
-  //   box-shadow: none;
-  // }
 }
 </style>

@@ -1,33 +1,51 @@
 @import "../fonts/Gilroy/stylesheet.css";
 @import "../fonts/Montserrat/stylesheet.css";
 @import "../fonts/FiraSans/stylesheet.css";
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   text-decoration: none;
   list-style: none;
 }
+
 body {
   background: var(--white);
 }
+
 :root {
   --font-family: "Gilroy", sans-serif;
   --second-family: "Montserrat", sans-serif;
   --third-family: "Fira Sans", sans-serif;
 }
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 input[type="number"] {
   -moz-appearance: textfield;
 }
+
 .main_container {
   max-width: 1440px;
   padding: 0 32px;
   margin: 0 auto;
 }
+
 .title {
   font-family: var(--font-family);
   font-weight: 400;
@@ -39,10 +57,12 @@ input[type="number"] {
   margin-bottom: 32px;
   padding: 0 12px;
 }
+
 @media (max-width: 576px) {
   .main_container {
     padding: 0 12px;
   }
+
   .title {
     font-weight: 600;
     font-size: 24px;

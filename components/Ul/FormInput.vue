@@ -1,21 +1,33 @@
 <template>
   <div class="input_wrapper">
-    <input :type="type" :value="value" id="investmentperiod" @input="$emit('update:value', $event.target.value)" />
+    <input
+      v-mask="['### ### ### ###', '### ### ### ###']"
+      :type="type"
+      :value="value"
+      id="investmentperiod"
+      :placeholder="placeholder"
+      @input="$emit('update:value', $event.target.value)"
+      autocomplete="off"
+    />
     <div class="input_label">{{ label }}</div>
   </div>
 </template>
 
 <script>
-// import { mask } from "vue-the-mask";
-// v-mask="['### ### ### ###', '### ### ### ###']"
+import { mask } from "vue-the-mask";
+
 export default {
-  // directives: { mask },
+  directives: { mask },
   props: {
     type: {
       type: String,
       default: "text",
     },
     label: {
+      type: String,
+      default: "",
+    },
+    placeholder: {
       type: String,
       default: "",
     },
@@ -27,7 +39,7 @@ export default {
 
 <style lang="scss">
 .input_wrapper {
-  #investmentperiod {
+  input {
     width: 100%;
     border: 1px solid #dde4ee;
     border-radius: 8px;
@@ -40,6 +52,20 @@ export default {
     margin-bottom: 8px;
     &:focus {
       outline: 1px solid var(--black);
+    }
+    &::placeholder {
+      font-family: var(--font-family);
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 122%;
+      color: var(--light-gray);
+    }
+    &:read-only {
+      font-weight: 700;
+      // background: var(--gray-for-background);
+      color: var(--black);
+      border: none;
+      outline: none;
     }
   }
   .input_label {

@@ -35,6 +35,7 @@ export default {
 </script>
 <style lang="scss">
 .about {
+  padding-top: 64px;
   .about_in {
     background: #20263b;
     border-radius: 16px;
@@ -53,6 +54,7 @@ export default {
       background: var(--yellow);
       border-radius: 30px;
       padding: 15px 20px;
+      cursor: pointer;
       font-family: var(--font-family);
       font-weight: 400;
       font-size: 24px;
