@@ -1,110 +1,209 @@
 <template>
-  <header class="header">
-    <div class="main_container">
-      <div class="header_in d-flex align-items-center justify-content-between">
-        <div class="logo">
-          <nuxt-link to="/">
-            <img src="~/assets/images/Logo.svg" alt="logosvg" />
-          </nuxt-link>
-        </div>
+  <div class="header_wrapper">
+    <header class="header" v-if="fullPathUrl != '/'">
+      <div class="main_container">
         <div
-          class="header_in_menu d-flex flex-md-row flex-column align-items-md-center justify-content-md-between w-100"
-          :class="modal ? 'menu_active' : ''"
+          class="header_in d-flex align-items-center justify-content-between"
         >
-          <div class="close_menu d-md-none d-flex justify-content-end">
-            <button class="close_menu_btn" @click="modal = false">
-              <img height="30" src="~/assets/images/icons/menu-burger-close.svg" alt="menu-burger-close" />
+          <div class="logo">
+            <nuxt-link to="/">
+              <img src="~/assets/images/Logo.svg" alt="logosvg" />
+            </nuxt-link>
+          </div>
+          <div
+            class="header_in_menu d-flex flex-md-row flex-column align-items-md-center justify-content-md-between w-100"
+            :class="menumodal ? 'menu_active' : ''"
+          >
+            <div class="close_menu d-md-none d-flex justify-content-end">
+              <button class="close_menu_btn" @click="menumodal = false">
+                <img
+                  height="30"
+                  src="~/assets/images/icons/menu-burger-close.svg"
+                  alt="menu-burger-close"
+                />
+              </button>
+            </div>
+            <nav
+              class="nav_links d-md-flex w-100 justify-content-between order-md-1 order-2"
+            >
+              <div class="nav_link">
+                <nuxt-link to="#">О проекте</nuxt-link>
+              </div>
+              <div
+                class="nav_link"
+                :class="fullPathUrl == '/bueseness' ? 'active' : ''"
+              >
+                <nuxt-link to="/bueseness">Для бизнеса</nuxt-link>
+              </div>
+              <div
+                class="nav_link"
+                :class="
+                  fullPathUrl == '/holders-detali' || fullPathUrl == '/'
+                    ? 'active'
+                    : ''
+                "
+              >
+                <nuxt-link to="/holders-detali">Для держателей</nuxt-link>
+              </div>
+            </nav>
+            <div
+              class="header_contact d-flex align-items-center order-md-2 order-1"
+            >
+              <div class="region position-relative order-md-1 order-4">
+                <button
+                  class="region_btn d-flex align-items-center"
+                  :class="modal ? 'region_btn_active' : ''"
+                  @click="(modal = true), (langmod = false)"
+                >
+                  <img src="~/assets/images/icons/region.svg" alt="region" />
+                  <div class="region_val">Регион</div>
+                </button>
+                <div
+                  class="region_menu position-absolute"
+                  :class="regionmod ? 'menu_active' : ''"
+                >
+                  <div
+                    class="region_option d-flex align-items-center justify-content-center"
+                    v-for="(region, i) in regionlist"
+                    :key="i"
+                    @click="(regionmod = !regionmod), regionFun(region)"
+                  >
+                    {{ region }}
+                  </div>
+                </div>
+              </div>
+              <div class="lang position-relative order-md-2 order-3">
+                <div
+                  class="language_widget d-flex align-items-center justify-content-center"
+                  :class="langmod ? 'language_widget_active' : ''"
+                  @click="(langmod = !langmod), (regionmod = false)"
+                >
+                  RU
+                </div>
+                <div
+                  class="lang_menu position-absolute"
+                  :class="langmod ? 'menu_active' : ''"
+                >
+                  <div
+                    class="lang_option d-flex align-items-center justify-content-center"
+                    v-for="(lang, i) in langlist"
+                    :key="i"
+                    @click="(langmod = !langmod), langFun(lang)"
+                  >
+                    {{ lang }}
+                  </div>
+                </div>
+              </div>
+              <div class="contact_link order-md-3 order-2">
+                <a href="mailto:info@goldao.ru">
+                  <img src="~/assets/images/icons/message.svg" alt="messages" />
+                </a>
+              </div>
+              <div class="contact_link order-md-4 order-1">
+                <a href="#">
+                  <img
+                    src="~/assets/images/icons/telegram.svg"
+                    alt="telegram"
+                  />
+                </a>
+              </div>
+              <div class="login d-none">
+                <a
+                  href="#"
+                  class="d-flex align-items-center justify-content-center"
+                >
+                  Войти
+                </a>
+              </div>
+            </div>
+          </div>
+          <button class="burger_btn d-md-none" @click="menumodal = true">
+            <svg
+              width="24"
+              height="20.5"
+              viewBox="0 0 18 16"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M18 1H0" stroke="#7D7F86" stroke-width="2" />
+              <path d="M18 8H0" stroke="#7D7F86" stroke-width="2" />
+              <path d="M18 15H0" stroke="#7D7F86" stroke-width="2" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- language selection modal start -->
+    <div
+      class="language_selection_modal position-fixed w-100 d-flex align-items-center justify-content-center"
+      :class="modal ? 'active' : ''"
+    >
+      <div class="modal_in_wrapper">
+        <div class="modal_in d-flex flex-column align-items-center">
+          <div class="close_img d-flex justify-content-end w-100">
+            <button
+              class="close_btn bg-transparent border-0"
+              @click="modal = false"
+            >
+              <svg
+                width="25"
+                height="25"
+                viewBox="0 0 25 25"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1L12.25 12.25M23.5 23.5L12.25 12.25M12.25 12.25L23.5 1L1 23.5"
+                  stroke="#DCDCDC"
+                  stroke-width="2"
+                />
+              </svg>
             </button>
           </div>
-          <nav class="nav_links d-md-flex w-100 justify-content-between order-md-1 order-2">
-            <div class="nav_link d-none">
-              <nuxt-link to="/">Главная</nuxt-link>
+          <p class="description_big">
+            <span>GOLDAO</span> - это бренд, который объединяет компании,
+            которые покупают, продают и хранят инвестиионные монеты из
+            драгоценных металлов
+          </p>
+          <form
+            action="#"
+            class="language_selection_form d-flex flex-column align-items-center"
+            @submit.prevent="accept"
+          >
+            <div class="form_control w-100">
+              <form-select
+                label="Выберите страну"
+                :options="['Франция', 'Россия', 'Узбекистан']"
+              ></form-select>
             </div>
-            <div class="nav_link">
-              <nuxt-link to="/">О проекте</nuxt-link>
+            <div class="form_control w-100">
+              <form-select
+                label="Выберите язык"
+                :options="['Русский', 'Узбекский', 'Французский']"
+              ></form-select>
             </div>
-            <div class="nav_link">
-              <nuxt-link to="/">Для бизнеса</nuxt-link>
-            </div>
-            <div class="nav_link active">
-              <nuxt-link to="/">Для держателей</nuxt-link>
-            </div>
-            <div class="nav_link d-none">
-              <nuxt-link to="/">Юридическая информация</nuxt-link>
-            </div>
-          </nav>
-          <div class="header_contact d-flex align-items-center order-md-2 order-1">
-            <div class="region position-relative order-md-1 order-4">
-              <button
-                class="region_btn d-flex align-items-center"
-                :class="regionmod ? 'region_btn_active' : ''"
-                @click="(regionmod = !regionmod), (langmod = false)"
-              >
-                <img src="~/assets/images/icons/region.svg" alt="region" />
-                <div class="region_val">Регион</div>
-              </button>
-              <div class="region_menu position-absolute" :class="regionmod ? 'menu_active' : ''">
-                <div
-                  class="region_option d-flex align-items-center justify-content-center"
-                  v-for="(region, i) in regionlist"
-                  :key="i"
-                  @click="(regionmod = !regionmod), regionFun(region)"
-                >
-                  {{ region }}
-                </div>
-              </div>
-            </div>
-            <div class="lang position-relative order-md-2 order-3">
-              <div
-                class="language_widget d-flex align-items-center justify-content-center"
-                :class="langmod ? 'language_widget_active' : ''"
-                @click="(langmod = !langmod), (regionmod = false)"
-              >
-                RU
-              </div>
-              <div class="lang_menu position-absolute" :class="langmod ? 'menu_active' : ''">
-                <div
-                  class="lang_option d-flex align-items-center justify-content-center"
-                  v-for="(lang, i) in langlist"
-                  :key="i"
-                  @click="(langmod = !langmod), langFun(lang)"
-                >
-                  {{ lang }}
-                </div>
-              </div>
-            </div>
-            <div class="contact_link order-md-3 order-2">
-              <a href="mailto:info@goldao.ru">
-                <img src="~/assets/images/icons/message.svg" alt="messages" />
-              </a>
-            </div>
-            <div class="contact_link order-md-4 order-1">
-              <a href="#">
-                <img src="~/assets/images/icons/telegram.svg" alt="telegram" />
-              </a>
-            </div>
-            <div class="login d-none">
-              <a href="#" class="d-flex align-items-center justify-content-center"> Войти </a>
-            </div>
-          </div>
+            <p class="description_small">
+              GOLDAO в выбранном регионе представляет компания ООО “Голдао.ру”
+              Вебсайт:
+              <a href="https://goldao.org" target="_blank">goldao.org</a>
+            </p>
+            <button class="accept_btn">Принять</button>
+          </form>
         </div>
-        <button class="burger_btn d-md-none" @click="modal = true">
-          <svg width="24" height="20.5" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 1H0" stroke="#7D7F86" stroke-width="2" />
-            <path d="M18 8H0" stroke="#7D7F86" stroke-width="2" />
-            <path d="M18 15H0" stroke="#7D7F86" stroke-width="2" />
-          </svg>
-        </button>
       </div>
     </div>
-  </header>
+    <!-- language selection modal end -->
+  </div>
 </template>
 
 <script>
+import FormSelect from "./Ul/FormSelect.vue";
 export default {
+  components: { FormSelect },
   data() {
     return {
       modal: false,
+      menumodal: false,
       langmod: false,
       regionmod: false,
       langlist: ["ENG", "RU", "UZ", "CHN", "KAZ"],
@@ -117,6 +216,11 @@ export default {
     },
     langFun(lang) {
       document.querySelector(".language_widget").innerHTML = lang;
+    },
+  },
+  computed: {
+    fullPathUrl: function () {
+      return this.$route.fullPath;
     },
   },
 };
@@ -139,8 +243,8 @@ export default {
           background-color: transparent;
           border: 0;
           img {
-            filter: brightness(0) saturate(100%) invert(52%) sepia(10%) saturate(162%) hue-rotate(189deg)
-              brightness(93%) contrast(93%);
+            filter: brightness(0) saturate(100%) invert(52%) sepia(10%)
+              saturate(162%) hue-rotate(189deg) brightness(93%) contrast(93%);
           }
         }
       }
@@ -217,8 +321,8 @@ export default {
             &:hover {
               background: var(--black);
               img {
-                filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(44deg)
-                  brightness(103%) contrast(103%);
+                filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
+                  saturate(0%) hue-rotate(44deg) brightness(103%) contrast(103%);
               }
               .region_val {
                 color: var(--white);
@@ -242,10 +346,9 @@ export default {
           .region_btn_active {
             background: var(--black);
             color: var(--white);
-            border-radius: 8px 8px 0 0;
             img {
-              filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%) hue-rotate(44deg)
-                brightness(103%) contrast(103%);
+              filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
+                saturate(0%) hue-rotate(44deg) brightness(103%) contrast(103%);
             }
             .region_val {
               color: var(--white);
@@ -389,6 +492,103 @@ export default {
   }
 }
 
+.language_selection_modal {
+  height: 100vh;
+  background: rgba(35, 36, 48, 0);
+  top: 0;
+  padding: 16px;
+  z-index: 101;
+  visibility: hidden;
+  transition: 0.5s;
+  .modal_in_wrapper {
+    max-width: 810px;
+    width: 100%;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.25);
+    background: var(--yellow);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 32px;
+    padding: 20px;
+    transform: translateY(200px);
+    opacity: 0;
+    transition: 0.5s;
+    .modal_in {
+      box-shadow: 0 0 16px 0 rgba(28, 31, 41, 0.5);
+      background: var(--white);
+      border: 2px solid var(--yellow);
+      border-radius: 16px;
+      padding: 40px;
+      gap: 16px;
+      .close_btn {
+        margin: -25px -25px 0 0;
+      }
+      .description_big {
+        font-family: var(--font-family);
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 125%;
+        letter-spacing: -0.02em;
+        text-align: center;
+        color: var(--black);
+        margin-top: -16px;
+        span {
+          font-weight: 600;
+        }
+      }
+      .language_selection_form {
+        gap: 16px;
+        .form_control {
+          max-width: 348px;
+          margin: 0 auto;
+        }
+        .description_small {
+          max-width: 524px;
+          width: 100%;
+          border-radius: 16px;
+          padding: 13px 0px;
+          background: var(--gray-for-background);
+          font-family: var(--font-family);
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 107%;
+          text-align: center;
+          color: var(--black);
+          a {
+            text-decoration: none;
+            color: var(--black);
+          }
+        }
+        .accept_btn {
+          max-width: 148px;
+          width: 100%;
+          background-color: var(--black);
+          border-radius: 22px;
+          padding: 11px;
+          border: 0;
+          font-family: var(--font-family);
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 122%;
+          text-align: center;
+          color: var(--white);
+          transition: 0.3s;
+
+          &:hover {
+            background-color: var(--yellow);
+          }
+        }
+      }
+    }
+  }
+}
+.language_selection_modal.active {
+  background: rgba(35, 36, 48, 0.49);
+  visibility: visible;
+  .modal_in_wrapper {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 // media
 @media (max-width: 1350px) {
   .header {
@@ -491,7 +691,7 @@ export default {
           content: "";
           width: 100%;
           height: 100%;
-          background-color: rgba(0, 0, 0, 0);
+          background: rgba(35, 36, 48, 0);
           position: absolute;
           top: 0;
           left: 100%;
@@ -536,7 +736,7 @@ export default {
         left: 0;
         visibility: visible;
         &::before {
-          background-color: rgba(0, 0, 0, 0.3);
+          background: rgba(35, 36, 48, 0.49);
         }
       }
       .burger_btn {

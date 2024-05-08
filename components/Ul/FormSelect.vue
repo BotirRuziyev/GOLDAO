@@ -6,7 +6,12 @@
       :class="select ? 'not_selected' : ''"
       @change="onChange()"
     >
-      <option value="1" v-for="(option, index) in options" :key="index" :class="index == 0 ? 'd-none' : ''">
+      <option
+        value="1"
+        v-for="(option, index) in options"
+        :key="index"
+        :class="option == 'Выберите страну' ? 'd-none' : ''"
+      >
         {{ option }}
       </option>
     </select>
@@ -55,7 +60,6 @@ export default {
     line-height: 122%;
     color: var(--black);
     box-shadow: none;
-    margin-bottom: 8px;
     cursor: pointer;
 
     option {
@@ -94,6 +98,7 @@ export default {
     line-height: 15px;
     color: var(--dark-gray);
     padding-left: 26px;
+    margin-top: 8px;
   }
   .form-select.decorated {
     option {

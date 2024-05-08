@@ -7,6 +7,7 @@
       :placeholder="placeholder"
       @input="$emit('update:value', $event.target.value)"
       autocomplete="off"
+      :disabled="disabled"
     />
     <div class="input_label">{{ label }}</div>
   </div>
@@ -30,6 +31,10 @@ export default {
     placeholder: {
       type: String,
       default: "",
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     value: [Number, String],
   },

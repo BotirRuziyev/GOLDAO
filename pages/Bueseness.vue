@@ -1,10 +1,10 @@
 <template>
-  <div class="bueseness">
+  <div class="bueseness page_section" id="bueseness">
     <section class="home">
       <h1 class="title">Эмиссионные монеты для бизнеса</h1>
       <p class="description">
-        Используйте эмиссионные монеты из золота, серебра или платины, которые выпускают Центральные Банки разных стран,
-        в коммерческой деятельности
+        Используйте эмиссионные монеты из золота, серебра или платины, которые
+        выпускают Центральные Банки разных стран, в коммерческой деятельности
       </p>
     </section>
 
@@ -15,13 +15,20 @@
       </div>
       <div class="import_export_contracts_form">
         <div class="calculations_coins">
-          <div class="calculations_coins_title">Взаиморасчет с применением монет</div>
+          <div class="calculations_coins_title">
+            Взаиморасчет с применением монет
+          </div>
           <form action="#" class="calculations_coins_form d-flex flex-column">
             <div class="form_control">
               <form-select
                 label="Страна компании-покупателя"
                 :selected="true"
-                :options="['Выберите страну', 'Россия', 'Узбекистан', 'Америка']"
+                :options="[
+                  'Выберите страну',
+                  'Россия',
+                  'Узбекистан',
+                  'Америка',
+                ]"
                 :class="calculation ? 'final_settlement' : ''"
               ></form-select>
             </div>
@@ -43,7 +50,12 @@
               <form-select
                 label="Страна компании-продавца"
                 :selected="true"
-                :options="['Выберите страну', 'Россия', 'Узбекистан', 'Америка']"
+                :options="[
+                  'Выберите страну',
+                  'Россия',
+                  'Узбекистан',
+                  'Америка',
+                ]"
                 :class="calculation ? 'final_settlement' : ''"
               ></form-select>
             </div>
@@ -57,8 +69,14 @@
             </div>
             <div class="form_bottom d-flex flex-column align-items-center">
               <div class="comission" v-if="calculation">Комиссия - 4%</div>
-              <div class="calculete_btn d-flex justify-content-center w-100" v-if="!calculation">
-                <ul-button btncontent="Рассчитать" @click="CalculationFun"></ul-button>
+              <div
+                class="calculete_btn d-flex justify-content-center w-100"
+                v-if="!calculation"
+              >
+                <ul-button
+                  btncontent="Рассчитать"
+                  @click="CalculationFun"
+                ></ul-button>
               </div>
               <div
                 class="calculations_coins_more_btn d-flex flex-sm-row flex-column align-items-center w-100"
@@ -69,7 +87,11 @@
                   class="reset_btn order-sm-1 order-2"
                   @click="ResetFun"
                 ></ul-button>
-                <nuxt-link to="/holders-detali" class="more_details_btn w-100 order-sm-2 order-1">Подробнее</nuxt-link>
+                <nuxt-link
+                  to="/holders-detali"
+                  class="more_details_btn w-100 order-sm-2 order-1"
+                  >Подробнее</nuxt-link
+                >
               </div>
             </div>
           </form>
@@ -81,8 +103,12 @@
     <!-- countries currencies  start -->
     <section class="countries_currencies">
       <div class="title_small">Валюты стран участников взаиморасчетов</div>
-      <div class="currencies_swiper d-flex align-items-center w-100">
-        <div class="swiper_slide d-flex align-items-center" v-for="(slide, i) in currencies" :key="i">
+      <!-- <div class="currencies_swiper d-flex align-items-center w-100">
+        <div
+          class="swiper_slide d-flex align-items-center"
+          v-for="(slide, i) in currencies"
+          :key="i"
+        >
           <div class="currencies_icon">
             {{ slide.slice(0, 1) }}
           </div>
@@ -90,18 +116,46 @@
             {{ slide.slice(1, slide.length) }}
           </div>
         </div>
-      </div>
-      <!-- <Swiper
-        :modules="[SwiperAutoplay, SwiperEffectCreative]"
-        :slides-per-view="1"
+      </div> -->
+      <Swiper
         :loop="true"
-        :slidesPerView="6.5"
-        :spaceBetween="53"
-        class="currencies_swiper"
+        :breakpoints="{
+          '0': {
+            slidesPerView: 1.5,
+            spaceBetween: 30,
+          },
+          '400': {
+            slidesPerView: 2.5,
+            spaceBetween: 30,
+          },
+          '768': {
+            slidesPerView: 3.5,
+            spaceBetween: 53,
+          },
+          '992': {
+            slidesPerView: 4.5,
+            spaceBetween: 53,
+          },
+          '1200': {
+            slidesPerView: 5.5,
+            spaceBetween: 53,
+          },
+        }"
+        class="currencies_swiper mySwiper"
       >
-        <SwiperSlide v-for="(slide, i) in currencies" :key="i" class="swiper_slide d-flex align-items-center">
+        <SwiperSlide
+          v-for="(slide, i) in currencies"
+          :key="i"
+          class="swiper_slide d-flex align-items-center"
+        >
+          <div class="currencies_icon">
+            {{ slide.slice(0, 1) }}
+          </div>
+          <div class="currencies_name">
+            {{ slide.slice(1, slide.length) }}
+          </div>
         </SwiperSlide>
-      </Swiper> -->
+      </Swiper>
     </section>
     <!-- countries currencies end -->
 
@@ -305,14 +359,29 @@ export default {
       margin-bottom: 34px;
     }
     .currencies_swiper {
-      overflow: auto;
-      &::-webkit-scrollbar {
-        height: 0;
-      }
       .swiper_slide {
-        gap: 10px;
-        padding-left: 53px;
-        white-space: nowrap;
+        gap: 16px;
+        &:nth-child(1) {
+          padding-left: 53px;
+        }
+        // &:nth-child(2) {
+        //   max-width: 148px;
+        // }
+        // &:nth-child(3) {
+        //   max-width: 174px;
+        // }
+        // &:nth-child(4) {
+        //   max-width: 182px;
+        // }
+        // &:nth-child(5) {
+        //   max-width: 189px;
+        // }
+        // &:nth-child(6) {
+        //   max-width: 178px;
+        // }
+        // &:nth-child(7) {
+        //   max-width: 214px;
+        // }
         .currencies_icon {
           font-family: var(--font-family);
           font-weight: 400;
@@ -338,8 +407,6 @@ export default {
   .bueseness {
     .home {
       padding: 32px 16px 0;
-      .title {
-      }
       .description {
         font-size: 18px;
         line-height: 122%;

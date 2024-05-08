@@ -1,117 +1,98 @@
 <template>
-  <main class="index_page">
-    <!-- coin holders start -->
-    <section class="coin_holders">
-      <h1 class="title">GOLDAO для держателей монет</h1>
-      <div class="about_coins">
-        <div class="about_coins_in">
-          <div class="about_coins_item d-flex align-items-sm-center" v-for="coin of coins" :key="coin.id">
-            <img :src="coin.img" alt="coin" />
-            <p class="description">{{ coin.description }}</p>
+  <div class="index_page">
+    <!-- home start -->
+    <section class="home d-flex flex-column align-items-center">
+      <div class="logo">
+        <img src="~/assets/images/logo.svg" alt="" />
+      </div>
+      <p class="description">
+        Не банковская инфраструктура для коммерческого применения эмиссионных
+        монет из золота, серебра или платины
+      </p>
+      <div class="home_card d-grid w-100">
+        <div class="card_item" v-for="item of homecard" :key="item.id">
+          <div class="card_img text-center">
+            <img :src="item.img" alt="06" />
           </div>
+          <div class="card_title">{{ item.title }}</div>
         </div>
       </div>
     </section>
-    <!-- coin holders end -->
+    <!-- home end -->
 
-    <!-- revenue generate start -->
-    <section class="revenue_generate">
-      <h1 class="title d-sm-block d-none">Получение дохода за хранение монет</h1>
-      <div class="revenue_generate_in d-grid">
-        <div class="revenue_generate_about">
-          <div class="revenue_generate_about_head">GOLDAO предлагает Вам получать доход за хранение монет</div>
-          <div class="revenue_generate_item" v-for="item of revenue" :key="item.id">
-            <div class="head">{{ item.head }}</div>
-            <p class="description">{{ item.description }}</p>
-            <p class="description" v-if="item.description2">
-              {{ item.description2 }}
+    <!-- International settlement start -->
+    <section class="international_settlement">
+      <div class="main_container">
+        <div
+          class="international_settlement_in d-flex flex-column align-items-center"
+        >
+          <div class="head">
+            <h2 class="title">Применение GOLDAO</h2>
+            <p class="description">
+              Международные взаиморасчеты с помощью эмиссионных монет
             </p>
           </div>
-        </div>
-        <div class="income_calculator_wrapper">
-          <div class="income_calculator">
-            <div class="income_calculator_title">Калькулятор возможного дохода</div>
-            <form action="#" @submit.stop.prevent="submit" :class="statistic ? 'd-none' : ''">
-              <div class="form_control">
-                <form-select label="Валюта вашей страны" :options="options"></form-select>
-              </div>
-              <div class="form_control">
-                <form-select
-                  label="Количество инвестиционных монет"
-                  :options="['50 шт', '100 шт', '150 шт', '200 шт']"
-                ></form-select>
-              </div>
-              <div class="form_control">
-                <div class="form_control_in d-flex align-items-start">
-                  <button class="month_minus_btn" @click="value > 1 ? (value -= 1) : value">
-                    <svg width="37" height="36" viewBox="0 0 47 46" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="23.8828" cy="23" r="23" fill="#FAFAFA" />
-                      <circle cx="23.8828" cy="23" r="22.5" stroke="black" stroke-opacity="0.05" />
-                      <path d="M31.8828 23H15.8828" stroke="#CFD2DD" stroke-width="1.5" />
-                    </svg>
-                  </button>
-                  <form-input label="Срок инвестиций (месяцев)" :value="value" type="text"></form-input>
-                  <button class="month_plus_btn" @click="value += 1">
-                    <svg width="37" height="36" viewBox="0 0 37 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <circle cx="18.8828" cy="18" r="18" fill="#FAFAFA" />
-                      <circle cx="18.8828" cy="18" r="17.5" stroke="black" stroke-opacity="0.05" />
-                      <path
-                        d="M18.8828 11V18M18.8828 25V18M18.8828 18H25.8828M18.8828 18H11.8828"
-                        stroke="black"
-                        stroke-width="1.5"
-                      />
-                    </svg>
-                  </button>
+          <form
+            action="#"
+            @submit.prevent="calculate"
+            class="international_settlement_form d-flex flex-column align-items-center"
+          >
+            <div class="international_settlement_form_in d-grid">
+              <div class="send_form">
+                <div class="form_control_head">Откуда отправить?</div>
+                <div class="form_control">
+                  <form-select
+                    label=""
+                    :options="[
+                      'Выберите страну',
+                      'Россия',
+                      'Узбекистан',
+                      'Америка',
+                    ]"
+                  ></form-select>
+                </div>
+                <div class="form_control d-flex">
+                  <form-input
+                    placeholder="Введите сумму"
+                    label=""
+                    value=""
+                    class="w-100"
+                  ></form-input>
+                  <form-select :options="['USD', 'RUB', 'UZS']"></form-select>
                 </div>
               </div>
-              <div class="d-flex justify-content-center">
-                <button class="calculate_income_btn user-select-none" @click="statistic = true">
-                  Рассчитать доход
-                </button>
-              </div>
-            </form>
-            <div class="income_statistic" :class="!statistic ? 'd-none' : ''">
-              <div class="income_statistic_item">
-                <div class="item_val text-center">600 000 ₽</div>
-                <div class="item_label">
-                  Сумма ваших инвестиций <span class="d-sm-inline d-none">на покупку 50 монет</span>
+              <div class="acceptance_form">
+                <div class="form_control_head">Откуда отправить?</div>
+                <div class="form_control">
+                  <form-select
+                    label=""
+                    :options="[
+                      'Выберите страну',
+                      'Россия',
+                      'Узбекистан',
+                      'Америка',
+                    ]"
+                  ></form-select>
                 </div>
-              </div>
-              <div class="income_statistic_item">
-                <div class="item_val text-center">6000 ₽</div>
-                <div class="item_label">Сумма вознаграждений за 2 месяца</div>
-              </div>
-              <div class="income_statistic_item">
-                <div class="item_val text-center">15% годовых</div>
-                <div class="item_label">Доходность</div>
-              </div>
-              <div class="income_statistic_btn d-flex flex-md-row flex-column">
-                <button class="reset_btn order-md-1 order-2 user-select-none" @click="statistic = false">
-                  Сбросить значения
-                </button>
-                <nuxt-link class="more_details_btn order-md-2 order-1 user-select-none" to="/holders-detali">
-                  Подробнее
-                </nuxt-link>
+                <div class="form_control d-flex">
+                  <form-input
+                    placeholder="Сумма к получению"
+                    label=""
+                    value=""
+                    :disabled="true"
+                    class="amount_received"
+                  ></form-input>
+                  <form-select :options="['USD', 'RUB', 'UZS']"></form-select>
+                </div>
               </div>
             </div>
-          </div>
-          <p class="income_calculator_description">
-            Не является коммерческим предложением, GOLDAO не гарантирует получение дохода на капитал, отраженный доход
-            является результатом расчета и зависит от количества применений монет держателя пользователями в месяц
-          </p>
+            <button class="calculate_btn">Рассчитать</button>
+          </form>
         </div>
       </div>
     </section>
-    <!-- revenue generate end -->
-
-    <!-- advantages start -->
-    <Advantages />
-    <!-- advantages end -->
-
-    <!-- question answer start-->
-    <QuestionAnswer />
-    <!-- question answer end-->
-  </main>
+    <!-- International settlement end -->
+  </div>
 </template>
 
 <script>
@@ -121,385 +102,206 @@ export default {
   components: { FormSelect, FormInput },
   data() {
     return {
-      value: 2,
-      statistic: false,
-      options: ["Российский рубль", "Доллар"],
-      coins: [
+      homecard: [
         {
           id: 1,
-          img: "/img/index/coin.png",
-          description: "Купите эмиссионные монеты из драгоценных металлов - золота, серебра или платины",
+          img: "/img/index/03.svg",
+          title: "Анонимно",
         },
         {
           id: 2,
-          img: "/img/index/coin2.png",
-          description: "Покупка эмиссионных монет - это инвестиция в драгоценные металлы и защиты  денег от инфляции",
+          img: "/img/index/06.svg",
+          title: "Безопасно",
         },
         {
           id: 3,
-          img: "/img/index/coin3.png",
-          description: "Покупка эмиссионных монет с помощью GOLDAO - получение дохода за  их хранение",
-        },
-      ],
-      revenue: [
-        {
-          id: 1,
-          head: "ВЫ: ",
-          description: "➜ покупаете и размещаете эмиссионные монеты на хранение",
+          img: "/img/index/16.svg",
+          title: "Легально",
         },
         {
-          id: 2,
-          head: "ПОЛЬЗОВАТЕЛИ:",
-          description: "➜ проводят взаиморасчеты с применением монет БЕЗ ИХ ФИЗИЧЕСКОГО перемещения",
-          description2: "➜ пользователи платят транзакционные комиссии за использование монет",
-        },
-        {
-          id: 3,
-          head: "ВЫ: ",
-          description: "➜ получаете 50% от транзацкионных комиссий, которые платят пользователи ",
+          id: 4,
+          img: "/img/index/05.svg",
+          title: "Выгодно",
         },
       ],
     };
-  },
-  methods: {
-    // updatevalue(value) {
-    //   // this.value = Number(value);
-    // },
   },
 };
 </script>
 
 <style lang="scss">
-// coin holders start
-.coin_holders {
-  padding: 64px 0 0 0;
-  .about_coins {
-    background: var(--yellow);
-    padding: 73px 32px;
-    .about_coins_in {
-      max-width: 1150px;
-      margin: 0 auto;
-      .about_coins_item {
-        gap: 17px;
-        margin-bottom: 41px;
-        &:last-child {
-          margin-bottom: 0;
-        }
-        img {
-          height: 100px;
-        }
-        .description {
-          font-family: var(--font-family);
-          font-weight: 400;
-          font-size: 32px;
-          line-height: 106%;
-          letter-spacing: -0.01em;
-          color: var(--black);
-        }
+.index_page {
+  .home {
+    max-width: 976px;
+    margin: 0 auto;
+    padding-top: 38px;
+    .logo {
+      margin-bottom: 34px;
+      img {
+        height: 70px;
       }
     }
-  }
-}
-// coin holders end
-
-// revenue generate start
-.revenue_generate {
-  padding: 64px 0 0 0;
-  .revenue_generate_in {
-    max-width: 1264px;
-    margin: 0 auto;
-    padding: 0 32px;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 50px;
-    .revenue_generate_about {
+    .description {
+      max-width: 760px;
+      margin: 0 auto;
       font-family: var(--font-family);
       font-weight: 400;
-      font-size: 32px;
-      line-height: 106%;
+      font-size: 24px;
+      line-height: 100%;
       letter-spacing: -0.01em;
-      color: #000;
-      .revenue_generate_about_head {
-        margin-bottom: 25px;
-      }
-      .revenue_generate_item {
-        .head {
-          font-weight: 600;
-          font-size: 24px;
-          line-height: 100%;
-          margin-bottom: 25px;
-        }
-        .description {
-          font-size: 18px;
-          line-height: 122%;
-          margin-bottom: 25px;
-        }
-      }
+      text-align: center;
+      color: var(--black);
+      margin-bottom: 16px;
     }
-    .income_calculator_wrapper {
-      .income_calculator {
-        border: 1px solid var(--light-gray);
+    .home_card {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      .card_item {
+        border: 1px solid var(--line-light);
         border-radius: 16px;
-        padding: 35px 40px;
+        padding: 8px 24px 12px 24px;
         box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.07);
         background: var(--white);
-        margin-bottom: 16px;
-        .income_calculator_title {
-          max-width: 443px;
-          margin: 0 auto;
+        cursor: pointer;
+        transition: 0.5s;
+
+        &:hover {
+          background-color: var(--yellow);
+          transform: translateY(-10px);
+          img {
+            filter: brightness(0) saturate(100%) invert(100%) sepia(100%)
+              saturate(0%) hue-rotate(181deg) brightness(103%) contrast(103%);
+          }
+          .card_title {
+            color: var(--white);
+          }
+        }
+        .card_img {
+          margin-bottom: 8px;
+          img {
+            transition: 0.3s;
+          }
+        }
+        .card_title {
           font-family: var(--font-family);
-          font-weight: 400;
-          font-size: 32px;
-          line-height: 106%;
-          letter-spacing: -0.01em;
+          font-weight: 700;
+          font-size: 18px;
+          line-height: 122%;
           text-align: center;
           color: var(--black);
-          margin-bottom: 16px;
-        }
-        form {
-          max-width: 348px;
-          margin: 0 auto;
-          .form_control {
-            margin-bottom: 16px;
-
-            .form_control_in {
-              gap: 14px;
-              margin-bottom: 8px;
-              button {
-                background: transparent;
-                border: 0;
-              }
-            }
-          }
-          .calculate_income_btn {
-            background: var(--black);
-            padding: 11px 15px;
-            border-radius: 22px;
-            border: 0;
-            font-family: var(--font-family);
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 122%;
-            text-align: center;
-            color: var(--white);
-            user-select: none;
-            transition: 0.3s;
-
-            &:hover {
-              background: var(--yellow);
-              color: var(--white);
-            }
-          }
+          transition: 0.3s;
         }
       }
-      .income_statistic {
-        max-width: 348px;
-        margin: 0 auto;
-        .income_statistic_item {
-          margin-bottom: 16px;
-          .item_val {
-            border: 1px solid var(--line-light);
-            border-radius: 8px;
-            padding: 12px 24px;
-            background: var(--gray-for-background);
-            font-family: var(--font-family);
-            font-weight: 800;
-            font-size: 18px;
-            line-height: 122%;
-            color: var(--black);
-            margin-bottom: 8.2px;
-          }
-          .item_label {
-            font-family: var(--font-family);
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 93%;
-            text-align: center;
-            color: var(--black);
-          }
-        }
-        .income_statistic_btn {
-          gap: 16px;
-          button {
-            border: 2px solid #dde4ee;
-            border-radius: 22px;
-            padding: 11px 15px;
-            background-color: transparent;
-            font-family: var(--font-family);
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 122%;
-            text-align: center;
-            color: var(--black);
-            transition: 0.3s;
-
-            &:hover {
-              background: var(--yellow);
-              color: var(--white);
-              border-color: var(--yellow);
-            }
-          }
-          .more_details_btn {
-            border: 2px solid transparent;
-            border-radius: 22px;
-            padding: 11px 15px;
-            background: #20263b;
-            font-family: var(--font-family);
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 122%;
-            text-align: center;
-            color: var(--white);
-            text-decoration: none;
-            transition: 0.3s;
-
-            &:hover {
-              background: var(--yellow);
-              color: var(--white);
-              border-color: var(--yellow);
-            }
-          }
-        }
-      }
-      .income_calculator_description {
-        padding: 0 30px;
+    }
+  }
+  .international_settlement {
+    margin-top: 48px;
+    .international_settlement_in {
+      padding: 48px 40px 32px 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.07);
+      background: var(--black);
+      gap: 32px;
+      .title {
         font-family: var(--font-family);
         font-weight: 400;
-        font-size: 14px;
-        line-height: 107%;
+        font-size: 40px;
+        line-height: 112%;
+        letter-spacing: -0.02em;
         text-align: center;
-        color: var(--dark-gray);
+        color: var(--white);
+        margin-bottom: 2px;
       }
-    }
-  }
-}
-// revenue generate end
-
-@media (max-width: 992px) {
-  .revenue_generate {
-    .revenue_generate_in {
-      gap: 17px;
-    }
-  }
-}
-@media (max-width: 768px) {
-  .revenue_generate {
-    .revenue_generate_in {
-      grid-template-columns: repeat(1, 1fr);
-      gap: 17px;
-      .income_calculator_wrapper {
-        max-width: 520px;
-        margin: 0 auto;
-      }
-    }
-  }
-}
-@media (max-width: 576px) {
-  .coin_holders {
-    padding-top: 32px;
-    .about_coins {
-      padding: 23px 16px;
-      .about_coins_in {
-        .about_coins_item {
-          margin-bottom: 20px;
-          &:last-child {
-            margin-bottom: 0;
-          }
-          img {
-            max-height: 60px;
-          }
-          .description {
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 122%;
-          }
-        }
-      }
-    }
-  }
-  .revenue_generate {
-    padding-top: 32px;
-    .revenue_generate_in {
-      padding: 0 16px;
-      .revenue_generate_about {
+      .description {
+        font-family: var(--font-family);
         font-weight: 400;
-        font-size: 14px;
-        line-height: 107%;
-        .revenue_generate_about_head {
-          font-family: var(--font-family);
-          font-weight: 600;
-          font-size: 24px;
-          line-height: 100%;
-          letter-spacing: -0.01em;
-          text-align: center;
-          color: var(--black);
-          margin-bottom: 4px;
-        }
-        .revenue_generate_item {
-          margin-bottom: 15px;
-          .head {
-            font-weight: 700;
-            font-size: 18px;
-            line-height: 122%;
-            color: #000;
-            margin-bottom: 15px;
-          }
-          .description {
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 107%;
-            margin-bottom: 15px;
-          }
-        }
+        font-size: 18px;
+        line-height: 122%;
+        text-align: center;
+        color: var(--white);
       }
-      .income_calculator_wrapper {
-        .income_calculator {
-          padding: 35px 30px;
-          .income_calculator_title {
-            font-weight: 600;
+      .international_settlement_form {
+        gap: 32px;
+        .international_settlement_form_in {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 57px;
+          .form_control_head {
+            font-family: var(--font-family);
+            font-weight: 400;
             font-size: 24px;
-            line-height: 100%;
-            letter-spacing: -0.01em;
-            margin-bottom: 16px;
-          }
-          form {
-            .calculate_income_btn {
-              width: 100%;
-            }
-            .form_control {
-              .form_control_in {
-                .input_wrapper {
-                  .input_label {
-                    margin-left: 24px;
-                  }
-                }
-              }
-              &:nth-child(3) {
-                .form_control_in {
-                  .input_wrapper {
-                    position: relative;
-                    margin-bottom: 23px;
-                    .input_label {
-                      width: auto;
-                      position: absolute;
-                      top: calc(100%);
-                      white-space: nowrap;
-                      margin: 0;
-                      left: 50%;
-                      transform: translateX(-50%);
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        .income_statistic {
-          .income_statistic_item {
+            line-height: 125%;
+            letter-spacing: -0.02em;
+            text-align: center;
+            color: var(--white);
             margin-bottom: 14px;
           }
+          .form_control {
+            gap: 8px;
+          }
+          .send_form {
+            .form_control {
+              &:nth-child(2) {
+                margin-bottom: 16px;
+              }
+              &:last-child {
+                input {
+                  width: auto;
+                  &::placeholder {
+                    font-family: var(--font-family);
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 122%;
+                    color: var(--dark-gray);
+                  }
+                }
+                select {
+                  min-width: 113px;
+                }
+              }
+            }
+          }
+          .acceptance_form {
+            .form_control {
+              &:nth-child(2) {
+                margin-bottom: 16px;
+              }
+              &:last-child {
+                input {
+                  width: auto;
+                  background: rgba(255, 255, 255, 0.1);
+                  &::placeholder {
+                    font-family: var(--font-family);
+                    font-weight: 400;
+                    font-size: 18px;
+                    line-height: 122%;
+                    color: var(--light-gray);
+                  }
+                }
+                select {
+                  min-width: 113px;
+                }
+              }
+            }
+          }
         }
-        .income_calculator_description {
-          padding: 0;
+        .calculate_btn {
+          max-width: 234px;
+          width: 100%;
+          border-radius: 22px;
+          padding: 11px 14px;
+          border: 0;
+          box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+          background: var(--yellow);
+          font-family: var(--font-family);
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 122%;
+          text-align: center;
+          color: var(--black);
+          transition: 0.3s;
+          &:hover {
+            background-color: var(--white);
+          }
         }
       }
     }
