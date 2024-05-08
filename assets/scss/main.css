@@ -4,6 +4,7 @@
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
   text-decoration: none;
   list-style: none;
 }
@@ -16,6 +17,16 @@ body {
   --font-family: "Gilroy", sans-serif;
   --second-family: "Montserrat", sans-serif;
   --third-family: "Fira Sans", sans-serif;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
 }
 
 input::-webkit-outer-spin-button,

@@ -1,9 +1,21 @@
 <template>
   <div class="select_wrapper">
-    <select class="form-select" aria-label="Default select example">
-      <option value="1" v-for="(option, index) in options" :key="index">{{ option }}</option>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      :class="select ? 'not_selected' : ''"
+      @change="onChange()"
+    >
+      <option
+        value="1"
+        v-for="(option, index) in options"
+        :key="index"
+        :class="option == 'Выберите страну' ? 'd-none' : ''"
+      >
+        {{ option }}
+      </option>
     </select>
-    <span class="select_label">{{ label }}</span>
+    <div class="select_label">{{ label }}</div>
   </div>
 </template>
 
@@ -18,11 +30,26 @@ export default {
       type: String,
       default: "",
     },
+    selected: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
+      select: this.selected,
+    };
+  },
+  methods: {
+    onChange() {
+      this.select = false;
+    },
   },
 };
 </script>
 <style lang="scss">
 .select_wrapper {
+  width: 100%;
   .form-select {
     border: 1px solid #dde4ee;
     border-radius: 8px;
@@ -33,8 +60,8 @@ export default {
     line-height: 122%;
     color: var(--black);
     box-shadow: none;
-    margin-bottom: 8px;
     cursor: pointer;
+
     option {
       max-width: 100%;
       padding: 10px 0;
@@ -53,14 +80,25 @@ export default {
         background: var(--white);
       }
     }
+    &:disabled {
+      font-weight: 700;
+      background: var(--gray-for-background);
+      color: var(--black);
+      border: none;
+      cursor: auto;
+    }
+  }
+  .not_selected {
+    color: var(--light-gray);
   }
   .select_label {
     font-family: var(--font-family);
     font-weight: 400;
     font-size: 14px;
-    line-height: 93%;
+    line-height: 15px;
     color: var(--dark-gray);
     padding-left: 26px;
+    margin-top: 8px;
   }
   .form-select.decorated {
     option {
@@ -69,9 +107,5 @@ export default {
       }
     }
   }
-  // select:focus > option {
-  //   background: #000 !important;
-  //   box-shadow: none;
-  // }
 }
 </style>

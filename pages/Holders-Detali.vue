@@ -1,5 +1,5 @@
 <template>
-  <div class="holders_detali">
+  <div class="holders_detali page_section" id="holders">
     <!-- page head start -->
     <PageHead />
     <!-- page head end -->
@@ -14,10 +14,12 @@
 
     <!-- calculation parameters start -->
     <div class="calculation_parameters">
-      <div class="calculation_parameters_title">Параметры для расчета ожидаемого дохода</div>
+      <div class="calculation_parameters_title">
+        Параметры для расчета ожидаемого дохода
+      </div>
       <p class="calculation_parameters_description">
-        Ожидаемый доход держателей зависит от страны, валюты и суммы, на которую будут куплены и размещены на хранение
-        эмиссионные монеты
+        Ожидаемый доход держателей зависит от страны, валюты и суммы, на которую
+        будут куплены и размещены на хранение эмиссионные монеты
       </p>
       <form
         action="#"
@@ -25,18 +27,19 @@
         class="calculation_parameters_form d-lg-flex d-grid align-items-start"
       >
         <div class="form_control">
-          <form-select label="Страна" :options="['СНГ', 'СНГ', 'СНГ']"></form-select>
+          <form-select
+            label="Страна"
+            :options="['СНГ', 'СНГ', 'СНГ']"
+          ></form-select>
         </div>
         <div class="form_control">
-          <form-input
-            label="Сумма"
-            :type="Number"
-            :value="value"
-            :mask="['(##) ####-####', '(##) #####-####']"
-          ></form-input>
+          <form-input label="Сумма" :value="value" type="text"></form-input>
         </div>
         <div class="form_control d-sm-block d-none">
-          <form-select label="Валюта" :options="['Российский рубль', 'Доллар']"></form-select>
+          <form-select
+            label="Валюта"
+            :options="['Российский рубль', 'Доллар']"
+          ></form-select>
         </div>
         <div class="form_control d-sm-none d-block">
           <form-select label="" :options="['RUB', 'USD ']"></form-select>
@@ -62,7 +65,10 @@
 
     <!-- about product start -->
     <div class="exchange_rates">
-      <about-product title="Курсы валют и цены драгоценных металлов" :product="aboutproduct"></about-product>
+      <about-product
+        title="Курсы валют и цены драгоценных металлов"
+        :product="aboutproduct"
+      ></about-product>
     </div>
     <!-- about product end -->
 
@@ -78,20 +84,28 @@
 
     <!-- purchasing and storing coins -->
     <div class="purchasing_storing_coins">
-      <about-product title="Покупка и размещение на хранение монет" :product="purchasingproduct"></about-product>
+      <about-product
+        title="Покупка и размещение на хранение монет"
+        :product="purchasingproduct"
+      ></about-product>
     </div>
     <!-- purchasing and storing coins -->
 
     <!-- warehouse receipts start -->
     <div class="warehouse_receipts">
-      <about-product title="Выпуск складских расписок в формате GTD" :product="warehouseproduct"></about-product>
+      <about-product
+        title="Выпуск складских расписок в формате GTD"
+        :product="warehouseproduct"
+      ></about-product>
     </div>
     <!-- warehouse receipts end -->
 
     <!-- About start -->
-    <div class="about_more">
-      <About page_title="Узнайте больше в нашем телеграмм-боте GOLDAO" to="#" button_content="Написать" />
-    </div>
+    <About
+      page_title="Узнайте больше в нашем телеграмм-боте GOLDAO"
+      to="#"
+      button_content="Написать"
+    />
     <!-- About end -->
   </div>
 </template>
@@ -179,7 +193,10 @@ export default {
           ],
         },
         {
-          images: ["/img/holders-detali/coin.png", "/img/holders-detali/coin2.png"],
+          images: [
+            "/img/holders-detali/coin.png",
+            "/img/holders-detali/coin2.png",
+          ],
         },
       ],
       purchasingproduct: [
@@ -203,13 +220,15 @@ export default {
             },
             {
               head: "Стоимость золота в монетах",
-              headbottom: "сумма денежных средств, которая будет использоваться в обороте сервиса",
+              headbottom:
+                "сумма денежных средств, которая будет использоваться в обороте сервиса",
               value: "889 516,50",
               currencysymbol: "RUB",
             },
             {
               head: "Размер премии в стоимости монет",
-              headbottom: "сумма денежных средств, которая не будет использоваться в обороте GOLDAO",
+              headbottom:
+                "сумма денежных средств, которая не будет использоваться в обороте GOLDAO",
               value: "84 531,48",
               currencysymbol: "RUB",
             },
@@ -259,9 +278,6 @@ export default {
       }
     }
   }
-}
-.about_more {
-  padding-top: 64px;
 }
 .calculation_parameters {
   padding: 64px 32px 0;
@@ -570,12 +586,10 @@ export default {
       }
     }
   }
-  .about_more {
-    .about {
-      .about_in {
-        .telegram_img {
-          display: block !important;
-        }
+  .about {
+    .about_in {
+      .telegram_img {
+        display: block !important;
       }
     }
   }
