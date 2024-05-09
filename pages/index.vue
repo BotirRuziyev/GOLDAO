@@ -738,6 +738,7 @@ export default {
       }
     }
     .international_settlement {
+      margin-top: 32px;
       .main_container {
         padding: 0;
       }
@@ -824,6 +825,7 @@ export default {
       }
     }
     .section {
+      margin-top: 32px;
       .section_in {
         padding: 20px 16px;
         .section_title {
