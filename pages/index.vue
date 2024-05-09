@@ -3,7 +3,7 @@
     <!-- home start -->
     <section class="home d-flex flex-column align-items-center">
       <div class="logo d-sm-block d-none">
-        <img src="~/assets/images/logo.svg" alt="" />
+        <img src="~/assets/images/Logo.svg" alt="" />
       </div>
       <p class="description">
         Не банковская инфраструктура для коммерческого применения эмиссионных
