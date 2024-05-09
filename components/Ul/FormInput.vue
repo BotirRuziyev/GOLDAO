@@ -9,7 +9,7 @@
       autocomplete="off"
       :disabled="disabled"
     />
-    <div class="input_label">{{ label }}</div>
+    <div class="input_label" v-if="label != ''">{{ label }}</div>
   </div>
 </template>
 
@@ -54,7 +54,6 @@ export default {
     font-size: 18px;
     line-height: 122%;
     color: var(--black);
-    margin-bottom: 8px;
     &:focus {
       outline: 1px solid var(--black);
     }
@@ -83,6 +82,7 @@ export default {
     line-height: 93%;
     text-align: start;
     color: var(--dark-gray);
+    margin-top: 8px;
   }
 }
 </style>

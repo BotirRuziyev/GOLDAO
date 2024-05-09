@@ -1,6 +1,6 @@
 <template>
   <div class="header_wrapper">
-    <header class="header" v-if="fullPathUrl != '/'">
+    <header class="header" :class="fullPathUrl == '/' ? 'index_header' : ''">
       <div class="main_container">
         <div
           class="header_in d-flex align-items-center justify-content-between"
@@ -210,12 +210,18 @@ export default {
       regionlist: ["Россия", "Узбекистан", "Германия", "Италия", "Турция"],
     };
   },
+  mounted() {
+    setTimeout(this.language, 1000);
+  },
   methods: {
     regionFun(region) {
       document.querySelector(".region_val").innerHTML = region;
     },
     langFun(lang) {
       document.querySelector(".language_widget").innerHTML = lang;
+    },
+    language() {
+      this.modal = true;
     },
   },
   computed: {
@@ -491,6 +497,9 @@ export default {
     }
   }
 }
+.index_header {
+  display: none;
+}
 
 .language_selection_modal {
   height: 100vh;
@@ -530,6 +539,7 @@ export default {
         text-align: center;
         color: var(--black);
         margin-top: -16px;
+        margin-bottom: 0;
         span {
           font-weight: 600;
         }
@@ -544,7 +554,7 @@ export default {
           max-width: 524px;
           width: 100%;
           border-radius: 16px;
-          padding: 13px 0px;
+          padding: 13px 10px;
           background: var(--gray-for-background);
           font-family: var(--font-family);
           font-weight: 400;
@@ -552,6 +562,7 @@ export default {
           line-height: 107%;
           text-align: center;
           color: var(--black);
+          margin-bottom: 0;
           a {
             text-decoration: none;
             color: var(--black);
@@ -826,6 +837,43 @@ export default {
         svg {
           width: 18px;
           height: 16px;
+        }
+      }
+    }
+  }
+  .index_header {
+    display: block;
+  }
+  .language_selection_modal {
+    .modal_in_wrapper {
+      padding: 10px;
+      border-radius: 15px;
+      .modal_in {
+        padding: 20px;
+        border-radius: 12px;
+        .close_img {
+          .close_btn {
+            margin-top: -10px;
+            margin-right: -10px;
+            svg {
+              height: 20px;
+            }
+          }
+        }
+        .description_big {
+          font-size: 16px;
+          line-height: 18px;
+          margin-bottom: 0;
+        }
+        .language_selection_form {
+          .description_small {
+            font-size: 12px;
+            line-height: 12px;
+          }
+          .accept_btn {
+            font-size: 14px;
+            padding: 8px;
+          }
         }
       }
     }

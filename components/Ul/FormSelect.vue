@@ -15,7 +15,7 @@
         {{ option }}
       </option>
     </select>
-    <div class="select_label">{{ label }}</div>
+    <div class="select_label" v-if="label != ''">{{ label }}</div>
   </div>
 </template>
 
