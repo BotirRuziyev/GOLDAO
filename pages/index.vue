@@ -34,7 +34,7 @@
           </div>
           <form
             action="#"
-            @submit.prevent="calculate"
+            @submit.prevent="calculate = true"
             class="international_settlement_form d-flex flex-column align-items-center position-relative"
           >
             <div class="international_settlement_form_in d-grid">
@@ -103,7 +103,7 @@
     <!-- International settlement end -->
 
     <!-- business start -->
-    <section class="business_section section">
+    <section class="business_section section" v-if="calculate">
       <div class="main_container">
         <div class="section_in">
           <h2 class="section_title">GOLDAO для бизнеса</h2>
@@ -128,7 +128,7 @@
     <!-- business end -->
 
     <!-- about start -->
-    <section class="about_section section">
+    <section class="about_section section" v-if="calculate">
       <div class="main_container">
         <div class="section_in">
           <h2 class="section_title">GOLDAO для держателей монет</h2>
@@ -155,7 +155,7 @@
     <!-- about end -->
 
     <!-- countries application start -->
-    <section class="countries_application_section section">
+    <section class="countries_application_section section" v-if="calculate">
       <div class="main_container">
         <div class="section_in">
           <h2 class="section_title">GOLDAO в странах применения</h2>
@@ -186,6 +186,7 @@ export default {
   components: { FormSelect, FormInput },
   data() {
     return {
+      calculate: false,
       homecard: [
         {
           id: 1,
