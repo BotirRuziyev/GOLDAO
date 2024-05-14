@@ -1,6 +1,6 @@
 <template>
   <div class="header_wrapper">
-    <header class="header" :class="fullPathUrl == '/' ? 'index_header' : ''">
+    <header class="header">
       <div class="main_container">
         <div
           class="header_in d-flex align-items-center justify-content-between"
@@ -27,7 +27,7 @@
               class="nav_links d-md-flex w-100 justify-content-between order-md-1 order-2"
             >
               <div class="nav_link">
-                <nuxt-link to="#">О проекте</nuxt-link>
+                <nuxt-link to="/about">О проекте</nuxt-link>
               </div>
               <div
                 class="nav_link"
@@ -37,11 +37,7 @@
               </div>
               <div
                 class="nav_link"
-                :class="
-                  fullPathUrl == '/holders-detali' || fullPathUrl == '/'
-                    ? 'active'
-                    : ''
-                "
+                :class="fullPathUrl == '/holders-detali' ? 'active' : ''"
               >
                 <nuxt-link to="/holders-detali">Для держателей</nuxt-link>
               </div>

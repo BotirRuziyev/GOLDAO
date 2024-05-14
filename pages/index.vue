@@ -88,7 +88,7 @@
             </div>
             <button class="calculate_btn">Рассчитать</button>
           </form>
-          <nuxt-link to="#" class="learn_more position-relative"
+          <nuxt-link to="/about" class="learn_more position-relative"
             >Узнать больше о GOLDAO</nuxt-link
           >
           <div class="blur position-absolute">
@@ -120,7 +120,9 @@
             </div>
           </div>
           <div class="section_link text-center">
-            <nuxt-link to="#">Узнать больше о GOLDAO для бизнеса</nuxt-link>
+            <nuxt-link to="/bueseness"
+              >Узнать больше о GOLDAO для бизнеса</nuxt-link
+            >
           </div>
         </div>
       </div>
@@ -145,7 +147,7 @@
             </div>
           </div>
           <div class="section_link text-center">
-            <nuxt-link to="#"
+            <nuxt-link to="/holders-detali"
               >Узнать больше о GOLDAO для владельцев монет</nuxt-link
             >
           </div>
@@ -315,7 +317,6 @@ export default {
         padding: 8px 24px 12px 24px;
         box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.07);
         background: var(--white);
-        cursor: pointer;
         transition: 0.5s;
 
         &:hover {
