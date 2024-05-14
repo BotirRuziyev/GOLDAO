@@ -318,18 +318,17 @@ export default {
         box-shadow: 0 0 25px 0 rgba(0, 0, 0, 0.07);
         background: var(--white);
         transition: 0.5s;
-
-        &:hover {
-          background-color: var(--yellow);
-          transform: translateY(-10px);
-          img {
-            filter: brightness(0) saturate(100%) invert(100%) sepia(100%)
-              saturate(0%) hue-rotate(181deg) brightness(103%) contrast(103%);
-          }
-          .card_title {
-            color: var(--white);
-          }
-        }
+        // &:hover {
+        //   background-color: var(--yellow);
+        //   transform: translateY(-10px);
+        //   img {
+        //     filter: brightness(0) saturate(100%) invert(100%) sepia(100%)
+        //       saturate(0%) hue-rotate(181deg) brightness(103%) contrast(103%);
+        //   }
+        //   .card_title {
+        //     color: var(--white);
+        //   }
+        // }
         .card_img {
           margin-bottom: 8px;
           img {
