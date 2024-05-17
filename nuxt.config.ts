@@ -58,7 +58,7 @@ export default defineNuxtConfig({
       }
     ],
     langDir: 'locales/',
-    defaultLocale: 'ru-RU',
+    // defaultLocale: 'ru-RU',
     strategy: 'prefix_except_default',
   }
 })
