@@ -6,8 +6,7 @@
         <img src="~/assets/images/Logo.svg" alt="" />
       </div>
       <p class="description">
-        Не банковская инфраструктура для коммерческого применения эмиссионных
-        монет из золота, серебра или платины
+        {{ $t("indexpage.home_description") }}
       </p>
       <div class="home_card d-grid w-100">
         <div class="card_item" v-for="item of homecard" :key="item.id">
@@ -181,107 +180,100 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import FormInput from "~/components/Ul/FormInput.vue";
 import FormSelect from "~/components/Ul/FormSelect.vue";
-export default {
-  components: { FormSelect, FormInput },
-  data() {
-    return {
-      calculate: false,
-      homecard: [
-        {
-          id: 1,
-          img: "/img/index/03.svg",
-          title: "Анонимно",
-        },
-        {
-          id: 2,
-          img: "/img/index/06.svg",
-          title: "Безопасно",
-        },
-        {
-          id: 3,
-          img: "/img/index/16.svg",
-          title: "Легально",
-        },
-        {
-          id: 4,
-          img: "/img/index/05.svg",
-          title: "Выгодно",
-        },
-      ],
-      business: [
-        {
-          sum: "1 000 000 RUB",
-          description: "Сумма отправления",
-        },
-        {
-          sum: "99 670 USD",
-          description: "Сумма получения",
-        },
-        {
-          sum: "7%",
-          description: "Комиссия с транзакции",
-        },
-      ],
-      about: [
-        {
-          sum: "65 000 RUB",
-          description: "Доход держателей от транзакции в",
-          span: "стране отправителя",
-        },
-        {
-          sum: "1 523 USD",
-          description: "Доход держателей от транзакции в",
-          span: "стране отправителя",
-        },
-        {
-          sum: "16%",
-          description: "Процент годовых от транзакции",
-        },
-        {
-          sum: "16%",
-          description: "Процент годовых от транзакции",
-        },
-      ],
-      CApplication: [
-        {
-          sum: "93 RUB / 1 USD",
-          description: "Курс национальной валюты",
-        },
-        {
-          sum: "1 RUB / 0,010628 USD",
-          description: "Курс в выбранной валюте",
-        },
-        {
-          sum: "5 919 090 RUB",
-          description: "Цена унции золота",
-        },
-        {
-          sum: "2 401,20 USD",
-          description: "Цена унции золота",
-        },
-        {
-          sum: "Георгий Победоносец, 30 г.",
-          description: "Название монет",
-        },
-        {
-          sum: "Георгий Победоносец, 30 г.",
-          description: "Название монет",
-        },
-        {
-          sum: "120 000 RUB",
-          description: "Цена монет",
-        },
-        {
-          sum: "999 USD",
-          description: "Расписки GOLDAO в обращении",
-        },
-      ],
-    };
+let calculate = ref(false);
+let homecard = [
+  {
+    id: 1,
+    img: "/img/index/03.svg",
+    title: "Анонимно",
   },
-};
+  {
+    id: 2,
+    img: "/img/index/06.svg",
+    title: "Безопасно",
+  },
+  {
+    id: 3,
+    img: "/img/index/16.svg",
+    title: "Легально",
+  },
+  {
+    id: 4,
+    img: "/img/index/05.svg",
+    title: "Выгодно",
+  },
+];
+let business = [
+  {
+    sum: "1 000 000 RUB",
+    description: "Сумма отправления",
+  },
+  {
+    sum: "99 670 USD",
+    description: "Сумма получения",
+  },
+  {
+    sum: "7%",
+    description: "Комиссия с транзакции",
+  },
+];
+let about = [
+  {
+    sum: "65 000 RUB",
+    description: "Доход держателей от транзакции в",
+    span: "стране отправителя",
+  },
+  {
+    sum: "1 523 USD",
+    description: "Доход держателей от транзакции в",
+    span: "стране отправителя",
+  },
+  {
+    sum: "16%",
+    description: "Процент годовых от транзакции",
+  },
+  {
+    sum: "16%",
+    description: "Процент годовых от транзакции",
+  },
+];
+let CApplication = [
+  {
+    sum: "93 RUB / 1 USD",
+    description: "Курс национальной валюты",
+  },
+  {
+    sum: "1 RUB / 0,010628 USD",
+    description: "Курс в выбранной валюте",
+  },
+  {
+    sum: "5 919 090 RUB",
+    description: "Цена унции золота",
+  },
+  {
+    sum: "2 401,20 USD",
+    description: "Цена унции золота",
+  },
+  {
+    sum: "Георгий Победоносец, 30 г.",
+    description: "Название монет",
+  },
+  {
+    sum: "Георгий Победоносец, 30 г.",
+    description: "Название монет",
+  },
+  {
+    sum: "120 000 RUB",
+    description: "Цена монет",
+  },
+  {
+    sum: "999 USD",
+    description: "Расписки GOLDAO в обращении",
+  },
+];
 </script>
 
 <style lang="scss">

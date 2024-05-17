@@ -157,9 +157,7 @@
             </button>
           </div>
           <p class="description_big">
-            <span>GOLDAO</span> - это бренд, который объединяет компании,
-            которые покупают, продают и хранят инвестиионные монеты из
-            драгоценных металлов
+            <span>GOLDAO</span> - {{ $t("header.modal.description") }}
           </p>
           <form
             action="#"

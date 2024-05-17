@@ -38,4 +38,27 @@ export default defineNuxtConfig({
       ],
     },
   },
+  i18n: {
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected'
+    },
+    locales: [
+      {
+        code: 'ru-RU',
+        iso: 'ru-RU',
+        name: 'Russia(RU)',
+        file: 'ru-RU.js',
+      },
+      {
+        code: 'en-US',
+        iso: 'en-US',
+        name: 'English(US)',
+        file: 'en-US.js',
+      }
+    ],
+    langDir: 'locales/',
+    defaultLocale: 'ru-RU',
+    strategy: 'prefix_except_default',
+  }
 })
