@@ -6,20 +6,19 @@
 
     <!-- About start -->
     <About
-      page_title="Держатели GOLDAO получают доход от комиссий, которые платят пользователи GOLDAO за коммерческое использование эмиссионных монет без их физического перемещения"
+      :page_title="$t('holders_detali.aboutcompoment_one.page_title')"
       to="#"
-      button_content="Связаться с GOLDAO"
+      :button_content="$t('holders_detali.aboutcompoment_one.button_content')"
     />
     <!-- About end -->
 
     <!-- calculation parameters start -->
     <div class="calculation_parameters">
       <div class="calculation_parameters_title">
-        Параметры для расчета ожидаемого дохода
+        {{ $t("holders_detali.calculation_parameters.title") }}
       </div>
       <p class="calculation_parameters_description">
-        Ожидаемый доход держателей зависит от страны, валюты и суммы, на которую
-        будут куплены и размещены на хранение эмиссионные монеты
+        {{ $t("holders_detali.calculation_parameters.description") }}
       </p>
       <form
         action="#"
@@ -28,30 +27,62 @@
       >
         <div class="form_control">
           <form-select
-            label="Страна"
-            :options="['СНГ', 'СНГ', 'СНГ']"
+            :label="
+              $t(
+                'holders_detali.calculation_parameters.calculation_parameters_form.labels.one',
+              )
+            "
+            :options="
+              locales.locale == 'ru'
+                ? ['СНГ', 'СНГ', 'СНГ']
+                : ['CIS', 'CIS', 'CIS']
+            "
           ></form-select>
         </div>
         <div class="form_control">
-          <form-input label="Сумма" :value="value" type="text"></form-input>
+          <form-input
+            :label="
+              $t(
+                'holders_detali.calculation_parameters.calculation_parameters_form.labels.two',
+              )
+            "
+            :value="value"
+            type="text"
+          ></form-input>
         </div>
         <div class="form_control d-sm-block d-none">
           <form-select
-            label="Валюта"
-            :options="['Российский рубль', 'Доллар']"
+            :label="
+              $t(
+                'holders_detali.calculation_parameters.calculation_parameters_form.labels.three',
+              )
+            "
+            :options="
+              locales.locale == 'ru'
+                ? ['Российский рубль', 'Доллар']
+                : ['Russian Ruble', 'Dollar']
+            "
           ></form-select>
         </div>
         <div class="form_control d-sm-none d-block">
           <form-select label="" :options="['RUB', 'USD ']"></form-select>
         </div>
-        <button class="restore_btn">Обновить</button>
+        <button class="restore_btn">
+          {{
+            $t(
+              "holders_detali.calculation_parameters.calculation_parameters_form.reset_btn",
+            )
+          }}
+        </button>
       </form>
     </div>
     <!-- calculation parameters end -->
 
     <!-- expected income start -->
     <div class="expected_income">
-      <div class="section_title"> Ожидаемый доход</div>
+      <div class="section_title">
+        {{ $t("holders_detali.expected_income.title") }}
+      </div>
       <div class="main_container">
         <div class="expected_income_card d-grid align-items-start">
           <div class="card_item" v-for="(item, index) in expected" :key="index">
@@ -66,7 +97,7 @@
     <!-- about product start -->
     <div class="exchange_rates">
       <about-product
-        title="Курсы валют и цены драгоценных металлов"
+        :title="$t('holders_detali.exchange_rates.title')"
         :product="aboutproduct"
       ></about-product>
     </div>
@@ -74,9 +105,11 @@
 
     <!-- coins in calculation start -->
     <div class="coins_calculation">
-      <div class="section_title">Монеты в расчете</div>
+      <div class="section_title">
+        {{ $t("holders_detali.coins_calculation.section_title") }}
+      </div>
       <about-product
-        title="Монета 50 рублей 2008 года ММД «Георгий Победоносец»"
+        :title="$t('holders_detali.coins_calculation.about_product.title')"
         :product="coinscalculation"
       ></about-product>
     </div>
@@ -85,7 +118,7 @@
     <!-- purchasing and storing coins -->
     <div class="purchasing_storing_coins">
       <about-product
-        title="Покупка и размещение на хранение монет"
+        :title="$t('holders_detali.purchasing_storing_coins.title')"
         :product="purchasingproduct"
       ></about-product>
     </div>
@@ -94,7 +127,7 @@
     <!-- warehouse receipts start -->
     <div class="warehouse_receipts">
       <about-product
-        title="Выпуск складских расписок в формате GTD"
+        :title="$t('holders_detali.warehouse_receipts.title')"
         :product="warehouseproduct"
       ></about-product>
     </div>
@@ -102,9 +135,9 @@
 
     <!-- About start -->
     <About
-      page_title="Узнайте больше в нашем телеграмм-боте GOLDAO"
+      :page_title="$t('holders_detali.aboutcompoment_two.page_title')"
       to="#"
-      button_content="Написать"
+      :button_content="$t('holders_detali.aboutcompoment_two.button_content')"
     />
     <!-- About end -->
   </div>
@@ -119,6 +152,7 @@ export default {
   data() {
     return {
       value: 100000,
+      locales: useI18n(),
       expected: [
         {
           value: "1 000 000 RUB",

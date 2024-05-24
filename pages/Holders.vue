@@ -2,7 +2,7 @@
   <main class="index_page page_section" id="holders">
     <!-- coin holders start -->
     <section class="coin_holders">
-      <h1 class="title">GOLDAO для держателей монет</h1>
+      <h1 class="title">{{ $t("holders.coin_holders.title") }}</h1>
       <div class="about_coins">
         <div class="about_coins_in">
           <div
@@ -11,7 +11,12 @@
             :key="coin.id"
           >
             <img :src="coin.img" alt="coin" />
-            <p class="description">{{ coin.description }}</p>
+            <p class="description" v-if="locales.locale == 'ru'">
+              {{ coin.description_ru_RU }}
+            </p>
+            <p class="description" v-if="locales.locale == 'en'">
+              {{ coin.description_en_US }}
+            </p>
           </div>
         </div>
       </div>
@@ -21,29 +26,48 @@
     <!-- revenue generate start -->
     <section class="revenue_generate">
       <h1 class="title d-sm-block d-none">
-        Получение дохода за хранение монет
+        {{ $t("holders.revenue_generate.title") }}
       </h1>
       <div class="revenue_generate_in d-grid">
         <div class="revenue_generate_about">
           <div class="revenue_generate_about_head">
-            GOLDAO предлагает Вам получать доход за хранение монет
+            {{ $t("holders.revenue_generate.about_head") }}
           </div>
           <div
             class="revenue_generate_item"
             v-for="item of revenue"
             :key="item.id"
           >
-            <div class="head">{{ item.head }}</div>
-            <p class="description">{{ item.description }}</p>
-            <p class="description" v-if="item.description2">
-              {{ item.description2 }}
+            <div class="head" v-if="locales.locale == 'ru'">
+              {{ item.head_ru_RU }}
+            </div>
+            <div class="head" v-if="locales.locale == 'en'">
+              {{ item.head_en_US }}
+            </div>
+            <p class="description" v-if="locales.locale == 'ru'">
+              {{ item.description_ru_RU }}
+            </p>
+            <p class="description" v-if="locales.locale == 'en'">
+              {{ item.description_en_US }}
+            </p>
+            <p
+              class="description"
+              v-if="item.description2_ru_RU && locales.locale == 'ru'"
+            >
+              {{ item.description2_ru_RU }}
+            </p>
+            <p
+              class="description"
+              v-if="item.description2_en_US && locales.locale == 'en'"
+            >
+              {{ item.description2_en_US }}
             </p>
           </div>
         </div>
         <div class="income_calculator_wrapper">
           <div class="income_calculator">
             <div class="income_calculator_title">
-              Калькулятор возможного дохода
+              {{ $t("holders.revenue_generate.income_calculator_title") }}
             </div>
             <form
               action="#"
@@ -52,13 +76,13 @@
             >
               <div class="form_control">
                 <form-select
-                  label="Валюта вашей страны"
+                  :label="$t('holders.revenue_generate.labels.one')"
                   :options="options"
                 ></form-select>
               </div>
               <div class="form_control">
                 <form-select
-                  label="Количество инвестиционных монет"
+                  :label="$t('holders.revenue_generate.labels.two')"
                   :options="['50 шт', '100 шт', '150 шт', '200 шт']"
                 ></form-select>
               </div>
@@ -91,7 +115,7 @@
                     </svg>
                   </button>
                   <form-input
-                    label="Срок инвестиций (месяцев)"
+                    :label="$t('holders.revenue_generate.labels.three')"
                     :value="value"
                     type="text"
                   ></form-input>
@@ -125,7 +149,7 @@
                   class="calculate_income_btn user-select-none"
                   @click="statistic = true"
                 >
-                  Рассчитать доход
+                  {{ $t("holders.revenue_generate.calculate_income_btn") }}
                 </button>
               </div>
             </form>
@@ -133,39 +157,54 @@
               <div class="income_statistic_item">
                 <div class="item_val text-center">600 000 ₽</div>
                 <div class="item_label">
-                  Сумма ваших инвестиций
-                  <span class="d-sm-inline d-none">на покупку 50 монет</span>
+                  {{
+                    $t(
+                      "holders.revenue_generate.income_statistic.labels.one.one_in",
+                    )
+                  }}
+                  <span class="d-sm-inline d-none">{{
+                    $t(
+                      "holders.revenue_generate.income_statistic.labels.one.d_none",
+                    )
+                  }}</span>
                 </div>
               </div>
               <div class="income_statistic_item">
                 <div class="item_val text-center">6000 ₽</div>
-                <div class="item_label">Сумма вознаграждений за 2 месяца</div>
+                <div class="item_label">
+                  {{
+                    $t("holders.revenue_generate.income_statistic.labels.two")
+                  }}
+                </div>
               </div>
               <div class="income_statistic_item">
                 <div class="item_val text-center">15% годовых</div>
-                <div class="item_label">Доходность</div>
+                <div class="item_label">
+                  {{
+                    $t("holders.revenue_generate.income_statistic.labels.three")
+                  }}
+                </div>
               </div>
-              <div class="income_statistic_btn d-flex flex-md-row flex-column">
+              <div
+                class="income_statistic_btn d-flex flex-md-row flex-column align-items-center justify-content-center"
+              >
                 <button
                   class="reset_btn order-md-1 order-2 user-select-none"
                   @click="statistic = false"
                 >
-                  Сбросить значения
+                  {{ $t("holders.revenue_generate.reset_btn") }}
                 </button>
                 <nuxt-link
                   class="more_details_btn order-md-2 order-1 user-select-none"
                   to="/holders-detali"
                 >
-                  Подробнее
+                  {{ $t("holders.revenue_generate.more_details_btn") }}
                 </nuxt-link>
               </div>
             </div>
           </div>
           <p class="income_calculator_description">
-            Не является коммерческим предложением, GOLDAO не гарантирует
-            получение дохода на капитал, отраженный доход является результатом
-            расчета и зависит от количества применений монет держателя
-            пользователями в месяц
+            {{ $t("holders.revenue_generate.income_calculator_description") }}
           </p>
         </div>
       </div>
@@ -192,46 +231,62 @@ export default {
       value: 2,
       statistic: false,
       options: ["Российский рубль", "Доллар"],
+      locales: useI18n(),
       coins: [
         {
           id: 1,
           img: "/img/index/coin.png",
-          description:
+          description_ru_RU:
             "Купите эмиссионные монеты из драгоценных металлов - золота, серебра или платины",
+          description_en_US:
+            "Purchase emission coins made of precious metals - gold, silver, or platinum",
         },
         {
           id: 2,
           img: "/img/index/coin2.png",
-          description:
+          description_ru_RU:
             "Покупка эмиссионных монет - это инвестиция в драгоценные металлы и защиты  денег от инфляции",
+          description_en_US:
+            "Buying emission coins is an investment in precious metals and a protection of money from inflation",
         },
         {
           id: 3,
           img: "/img/index/coin3.png",
-          description:
+          description_ru_RU:
             "Покупка эмиссионных монет с помощью GOLDAO - получение дохода за  их хранение",
+          description_en_US:
+            "Buying emission coins with GOLDAO - earning income for their storage",
         },
       ],
       revenue: [
         {
           id: 1,
-          head: "ВЫ: ",
-          description:
+          head_ru_RU: "ВЫ: ",
+          description_ru_RU:
             "➜ покупаете и размещаете эмиссионные монеты на хранение",
+          head_en_US: "YOU:",
+          description_en_US: "➜ purchase and store emission coins",
         },
         {
           id: 2,
-          head: "ПОЛЬЗОВАТЕЛИ:",
-          description:
+          head_ru_RU: "ПОЛЬЗОВАТЕЛИ:",
+          description_ru_RU:
             "➜ проводят взаиморасчеты с применением монет БЕЗ ИХ ФИЗИЧЕСКОГО перемещения",
-          description2:
+          description2_ru_RU:
             "➜ пользователи платят транзакционные комиссии за использование монет",
+          head_en_US: "USERS:",
+          description_en_US:
+            "➜ conduct settlements using coins WITHOUT THEIR PHYSICAL movement",
+          description2_en_US: "➜ users pay transaction fees for using coins",
         },
         {
           id: 3,
-          head: "ВЫ: ",
-          description:
+          head_ru_RU: "ВЫ: ",
+          description_ru_RU:
             "➜ получаете 50% от транзацкионных комиссий, которые платят пользователи ",
+          head_en_US: "YOU:",
+          description_en_US:
+            "➜ receive 50% of the transaction fees paid by users",
         },
       ],
     };

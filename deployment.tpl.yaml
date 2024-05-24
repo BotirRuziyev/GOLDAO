@@ -1,0 +1,57 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: ${APP}
+  namespace: ${NAMESPACE}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ${APP}
+  template:
+    metadata:
+      labels:
+        app: ${APP}
+    spec:
+      containers:
+        - name: ${APP}
+          image: ${CI_REGISTRY_IMAGE}:${CI_REGISTRY_IMAGE_TAG}
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            failureThreshold: 13
+            successThreshold: 1
+            timeoutSeconds: 5
+            periodSeconds: 180
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            failureThreshold: 13
+            successThreshold: 1
+            timeoutSeconds: 5
+            periodSeconds: 180
+          imagePullPolicy: Always
+      restartPolicy: Always
+      imagePullSecrets:
+        - name: regcred
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: ${APP}
+  namespace: ${NAMESPACE}
+  labels:
+    app: ${APP}
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 3000
+  selector:
+    app: ${APP}
+  type: ClusterIP

@@ -4,15 +4,28 @@
       class="form-select"
       aria-label="Default select example"
       :class="select ? 'not_selected' : ''"
-      @change="onChange()"
+      @change="onChange($event)"
     >
       <option
-        value="1"
+        :value="typeof option === 'object' ? option.value : ''"
         v-for="(option, index) in options"
         :key="index"
-        :class="option == 'Выберите страну' ? 'd-none' : ''"
+        :class="
+          option == 'Выберите страну' ||
+          option == 'Выберите валюту' ||
+          option == 'Choose a country' ||
+          option == 'Choose a currency'
+            ? 'd-none'
+            : ''
+        "
+        :selected="
+          typeof option === 'object' && option.value == lang ? true : false
+        "
       >
-        {{ option }}
+        <span v-if="typeof option == 'object'">{{ option.content }}</span>
+        <span v-else>
+          {{ option }}
+        </span>
       </option>
     </select>
     <div class="select_label" v-if="label != ''">{{ label }}</div>
@@ -38,12 +51,17 @@ export default {
   data() {
     return {
       select: this.selected,
+      lang: "",
     };
   },
   methods: {
-    onChange() {
+    onChange(event) {
       this.select = false;
+      this.$emit("update:value", event.target.value);
     },
+  },
+  mounted() {
+    this.lang = localStorage.getItem("lang");
   },
 };
 </script>

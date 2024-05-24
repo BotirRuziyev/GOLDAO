@@ -7,24 +7,24 @@
           <!-- <img class="d-lg-none d-block" src="~/assets/images/footermoblogo.svg" alt="footermoblogo" /> -->
         </div>
         <div class="menu_item">
-          <div class="head">Для бизнеса</div>
+          <div class="head">{{ $t("footer.itemone.head") }}</div>
           <div class="nav_link">
-            <a href="#">Приём платежей от физлиц за товары и услуги</a>
+            <a href="#">{{ $t("footer.itemone.nav_link_one") }}</a>
           </div>
           <div class="nav_link">
-            <a href="#">Расчёт с зарубежными контрагентами </a>
+            <a href="#">{{ $t("footer.itemone.nav_link_two") }}</a>
           </div>
           <div class="nav_link">
-            <a href="#"> Юридическая информация </a>
+            <a href="#">{{ $t("footer.itemone.nav_link_three") }}</a>
           </div>
         </div>
         <div class="menu_item">
-          <div class="head">Инвесторам</div>
+          <div class="head">{{ $t("footer.itemtwo.head") }}</div>
           <div class="nav_link">
-            <a href="#">Инвестировать в монеты</a>
+            <a href="#">{{ $t("footer.itemtwo.nav_link_one") }}</a>
           </div>
           <div class="nav_link">
-            <a href="#">Открыть офис GOLDAO</a>
+            <a href="#">{{ $t("footer.itemtwo.nav_link_two") }}</a>
           </div>
         </div>
         <div class="menu_item">
@@ -34,7 +34,13 @@
           <div class="messengers d-flex">
             <div class="messenger_icon d-flex align-item-center">
               <a href="#">
-                <svg width="24" height="21" viewBox="0 0 24 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="24"
+                  height="21"
+                  viewBox="0 0 24 21"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     d="M18.9545 0.906982H22.4685L14.7914 9.34397L23.8229 20.8248H16.7513L11.2125 13.8617L4.87495 20.8248H1.35878L9.57024 11.8005L0.90625 0.906982H8.15741L13.164 7.2715L18.9545 0.906982ZM17.7212 18.8024H19.6683L7.09937 2.82318H5.00986L17.7212 18.8024Z"
                     fill="#CFD2DD"
@@ -42,7 +48,13 @@
                 </svg>
               </a>
               <a href="#">
-                <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="26"
+                  height="25"
+                  viewBox="0 0 26 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     d="M13.3643 0C6.46076 0 0.864258 5.5965 0.864258 12.5C0.864258 18.362 4.90026 23.281 10.3448 24.632V16.32H7.76726V12.5H10.3448V10.854C10.3448 6.5995 12.2703 4.6275 16.4473 4.6275C17.2393 4.6275 18.6058 4.783 19.1648 4.938V8.4005C18.8698 8.3695 18.3573 8.354 17.7208 8.354C15.6713 8.354 14.8793 9.1305 14.8793 11.149V12.5H18.9623L18.2608 16.32H14.8793V24.9085C21.0688 24.161 25.8648 18.891 25.8648 12.5C25.8643 5.5965 20.2678 0 13.3643 0Z"
                     fill="#CFD2DD"
@@ -50,7 +62,13 @@
                 </svg>
               </a>
               <a href="#">
-                <svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                  width="26"
+                  height="25"
+                  viewBox="0 0 26 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
                   <path
                     fill-rule="evenodd"
                     clip-rule="evenodd"
@@ -65,11 +83,11 @@
             </div>
           </div>
           <div class="location">
-            107564, г. Москва, ул. Красная площадь, д. 2, 75
+            {{ $t("footer.location") }}
             <br />
-            ИНН 7702705290 | КПП 770901001
+            {{ $t("footer.locationbr") }}
           </div>
-          <div class="copyright">© ООО "ГОЛДАО" 2024</div>
+          <div class="copyright">{{ $t("footer.copyright") }}</div>
         </div>
       </div>
     </div>
@@ -133,7 +151,6 @@
           line-height: 107%;
           color: #141824;
           text-decoration: none;
-          white-space: nowrap;
           position: relative;
           transition: 0.3s;
           &::after {

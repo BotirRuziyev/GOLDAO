@@ -6,7 +6,7 @@
           class="header_in d-flex align-items-center justify-content-between"
         >
           <div class="logo">
-            <nuxt-link to="/">
+            <nuxt-link :to="localePath('/')">
               <img src="~/assets/images/Logo.svg" alt="logosvg" />
             </nuxt-link>
           </div>
@@ -27,19 +27,35 @@
               class="nav_links d-md-flex w-100 justify-content-between order-md-1 order-2"
             >
               <div class="nav_link">
-                <nuxt-link to="/about">О проекте</nuxt-link>
+                <nuxt-link :to="localePath('/about')">{{
+                  $t("header.header_links.about")
+                }}</nuxt-link>
               </div>
               <div
                 class="nav_link"
-                :class="fullPathUrl == '/bueseness' ? 'active' : ''"
+                :class="
+                  fullPathUrl.slice(3, fullPathUrl.length) == '/buiseness'
+                    ? 'active'
+                    : ''
+                "
               >
-                <nuxt-link to="/bueseness">Для бизнеса</nuxt-link>
+                <nuxt-link :to="localePath('/buiseness')">
+                  {{ $t("header.header_links.business") }}</nuxt-link
+                >
               </div>
               <div
                 class="nav_link"
-                :class="fullPathUrl == '/holders-detali' ? 'active' : ''"
+                :class="
+                  fullPathUrl.slice(3, fullPathUrl.length) ==
+                    '/holders-detali' ||
+                  fullPathUrl.slice(3, fullPathUrl.length) == '/holders'
+                    ? 'active'
+                    : ''
+                "
               >
-                <nuxt-link to="/holders-detali">Для держателей</nuxt-link>
+                <nuxt-link :to="localePath('/holders-detali')">
+                  {{ $t("header.header_links.holders") }}</nuxt-link
+                >
               </div>
             </nav>
             <div
@@ -52,21 +68,9 @@
                   @click="(modal = true), (langmod = false)"
                 >
                   <img src="~/assets/images/icons/region.svg" alt="region" />
-                  <div class="region_val">Регион</div>
+                  <div class="region_val" v-if="locale == 'ru'">Регион</div>
+                  <div class="region_val" v-if="locale == 'en'">Region</div>
                 </button>
-                <div
-                  class="region_menu position-absolute"
-                  :class="regionmod ? 'menu_active' : ''"
-                >
-                  <div
-                    class="region_option d-flex align-items-center justify-content-center"
-                    v-for="(region, i) in regionlist"
-                    :key="i"
-                    @click="(regionmod = !regionmod), regionFun(region)"
-                  >
-                    {{ region }}
-                  </div>
-                </div>
               </div>
               <div class="lang position-relative order-md-2 order-3">
                 <div
@@ -74,7 +78,7 @@
                   :class="langmod ? 'language_widget_active' : ''"
                   @click="(langmod = !langmod), (regionmod = false)"
                 >
-                  RU
+                  {{ locale }}
                 </div>
                 <div
                   class="lang_menu position-absolute"
@@ -82,7 +86,7 @@
                 >
                   <div
                     class="lang_option d-flex align-items-center justify-content-center"
-                    v-for="(lang, i) in langlist"
+                    v-for="(lang, i) in countries"
                     :key="i"
                     @click="(langmod = !langmod), langFun(lang)"
                   >
@@ -157,7 +161,7 @@
             </button>
           </div>
           <p class="description_big">
-            <span>GOLDAO</span> - {{ $t("header.modal.description") }}
+            <span>GOLDAO</span> {{ $t("header.modal.description_big") }}
           </p>
           <form
             action="#"
@@ -166,22 +170,34 @@
           >
             <div class="form_control w-100">
               <form-select
-                label="Выберите страну"
-                :options="['Франция', 'Россия', 'Узбекистан']"
+                :label="$t('header.modal.labels.one')"
+                :options="regions"
               ></form-select>
             </div>
             <div class="form_control w-100">
               <form-select
-                label="Выберите язык"
-                :options="['Русский', 'Узбекский', 'Французский']"
+                :label="$t('header.modal.labels.two')"
+                :options="
+                  locale == 'ru'
+                    ? [
+                        { value: 'ru', content: 'Русский' },
+                        { value: 'en', content: 'Американский' },
+                      ]
+                    : [
+                        { value: 'ru', content: 'Russian' },
+                        { value: 'en', content: 'American' },
+                      ]
+                "
+                @update:value="langSwitch"
               ></form-select>
             </div>
             <p class="description_small">
-              GOLDAO в выбранном регионе представляет компания ООО “Голдао.ру”
-              Вебсайт:
+              {{ $t("header.modal.description_small") }}
               <a href="https://goldao.org" target="_blank">goldao.org</a>
             </p>
-            <button class="accept_btn">Принять</button>
+            <button class="accept_btn" @click="changeLanguage">
+              {{ $t("header.modal.accept_btn") }}
+            </button>
           </form>
         </div>
       </div>
@@ -192,30 +208,47 @@
 
 <script>
 import FormSelect from "./Ul/FormSelect.vue";
+import { useAvailableCountries } from "~/api/countries.js";
+import { useCompanies } from "~/api/company.js";
 export default {
   components: { FormSelect },
+  async setup() {
+    const { locale, locales, setLocale } = useI18n();
+    const { data: companies } = await useCompanies();
+    const { data: countries } = await useAvailableCountries();
+    return { countries, locale, companies };
+  },
   data() {
     return {
       modal: false,
       menumodal: false,
       langmod: false,
       regionmod: false,
-      langlist: ["ENG", "RU", "UZ", "CHN", "KAZ"],
-      regionlist: ["Россия", "Узбекистан", "Германия", "Италия", "Турция"],
+      langlist: ["ENG", "RU"],
+      regions: [],
+      lang: "",
+      useI18n: useI18n(),
     };
   },
   mounted() {
     setTimeout(this.language, 1000);
+    this.companies.content.forEach((element) => {
+      this.regions.push(element.region);
+    });
   },
   methods: {
-    regionFun(region) {
-      document.querySelector(".region_val").innerHTML = region;
-    },
     langFun(lang) {
       document.querySelector(".language_widget").innerHTML = lang;
     },
     language() {
       this.modal = true;
+    },
+    langSwitch(val) {
+      localStorage.setItem("lang", val);
+    },
+    changeLanguage() {
+      this.useI18n.setLocale(`${localStorage.getItem("lang")}`);
+      this.modal = false;
     },
   },
   computed: {
@@ -409,6 +442,7 @@ export default {
             line-height: 10px;
             color: var(--dark-gray);
             background-color: var(--gray-for-background);
+            text-transform: uppercase;
             cursor: pointer;
             user-select: none;
             transition: 0.3s;
@@ -423,14 +457,19 @@ export default {
             color: var(--white);
           }
           .lang_menu {
+            max-height: 300px;
             top: 100%;
             left: 50%;
             transform: translate(-50%, 50px);
             border-radius: 8px;
-            overflow: hidden;
+            overflow: auto;
             opacity: 0;
             visibility: hidden;
             transition: 0.3s;
+
+            &::-webkit-scrollbar {
+              width: 0;
+            }
             .lang_option {
               min-width: 44px;
               min-height: 44px;

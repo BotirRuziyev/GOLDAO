@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="question_answer">
-      <h1 class="title">Вопросы о системе</h1>
+      <h1 class="title">{{ $t("questionanswer.title") }}</h1>
       <div class="main_container">
         <div class="accordion question_answer_accordion" id="accordionExample">
           <div

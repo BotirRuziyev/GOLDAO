@@ -1,80 +1,85 @@
 <template>
   <div class="bueseness page_section" id="bueseness">
     <section class="home">
-      <h1 class="title">Эмиссионные монеты для бизнеса</h1>
+      <h1 class="title">{{ $t("buisenesspage.title") }}</h1>
       <p class="description">
-        Используйте эмиссионные монеты из золота, серебра или платины, которые
-        выпускают Центральные Банки разных стран, в коммерческой деятельности
+        {{ $t("buisenesspage.description") }}
       </p>
     </section>
 
     <!-- import export contracts start -->
     <section class="import_export_contracts">
       <div class="title_small d-sm-block d-none">
-        Эмиссионные монеты для взаиморасчетов по импортно-экспортным контрактам
+        {{ $t("buisenesspage.contracts.title") }}
       </div>
       <div class="import_export_contracts_form">
         <div class="calculations_coins">
           <div class="calculations_coins_title">
-            Взаиморасчет с применением монет
+            {{ $t("buisenesspage.contracts.contracts_form.title") }}
           </div>
           <form action="#" class="calculations_coins_form d-flex flex-column">
             <div class="form_control">
               <form-select
-                label="Страна компании-покупателя"
+                :label="$t('buisenesspage.contracts.contracts_form.labels.one')"
                 :selected="true"
-                :options="[
-                  'Выберите страну',
-                  'Россия',
-                  'Узбекистан',
-                  'Америка',
-                ]"
+                :options="
+                  locales.locale == 'ru'
+                    ? ['Выберите страну', 'Россия', 'Америка']
+                    : ['Choose a country', 'Russia', 'America']
+                "
                 :class="calculation ? 'final_settlement' : ''"
               ></form-select>
             </div>
             <div class="form_control d-flex flex-sm-row flex-column">
               <form-input
-                placeholder="Введите сумму"
-                label="Сумма взаиморасчета"
+                :placeholder="$t('buisenesspage.inputs_placeholder')"
+                :label="$t('buisenesspage.contracts.contracts_form.labels.two')"
                 :value="value"
                 :class="calculation ? 'final_settlement' : ''"
               ></form-input>
               <form-select
                 class="currency"
                 label="Валюта взаиморасчёта"
-                :options="['USD', 'RUB', 'UZS']"
+                :options="['USD', 'RUB']"
                 :class="calculation ? 'final_settlement' : ''"
               ></form-select>
             </div>
             <div class="form_control">
               <form-select
-                label="Страна компании-продавца"
+                :label="
+                  $t('buisenesspage.contracts.contracts_form.labels.three')
+                "
                 :selected="true"
-                :options="[
-                  'Выберите страну',
-                  'Россия',
-                  'Узбекистан',
-                  'Америка',
-                ]"
+                :options="
+                  locales.locale == 'ru'
+                    ? ['Выберите страну', 'Россия', 'Америка']
+                    : ['Choose a country', 'Russia', 'America']
+                "
                 :class="calculation ? 'final_settlement' : ''"
               ></form-select>
             </div>
             <div class="form_control">
               <form-select
-                label="Валюта получения продавцом"
+                :label="
+                  $t('buisenesspage.contracts.contracts_form.labels.four')
+                "
                 :selected="true"
-                :options="['Выберите валюту', 'USD', 'RUB', 'UZS']"
+                :options="['Выберите валюту', 'USD', 'RUB']"
                 :class="calculation ? 'final_settlement' : ''"
               ></form-select>
             </div>
             <div class="form_bottom d-flex flex-column align-items-center">
-              <div class="comission" v-if="calculation">Комиссия - 4%</div>
+              <div class="comission" v-if="calculation">
+                {{ $t("buisenesspage.contracts.contracts_form.comission") }}
+              </div>
               <div
                 class="calculete_btn d-flex justify-content-center w-100"
                 v-if="!calculation"
               >
                 <ul-button
-                  btncontent="Рассчитать"
+                  :btncontent="
+                    $t('buisenesspage.contracts.contracts_form.calculate_btn')
+                  "
                   @click="CalculationFun"
                 ></ul-button>
               </div>
@@ -83,14 +88,20 @@
                 v-if="calculation"
               >
                 <ul-button
-                  btncontent="Сбросить значения"
+                  :btncontent="
+                    $t('buisenesspage.contracts.contracts_form.reset_btn')
+                  "
                   class="reset_btn order-sm-1 order-2"
                   @click="ResetFun"
                 ></ul-button>
                 <nuxt-link
-                  to="/holders-detali"
+                  :to="localePath('/holders-detali')"
                   class="more_details_btn w-100 order-sm-2 order-1"
-                  >Подробнее</nuxt-link
+                  >{{
+                    $t(
+                      "buisenesspage.contracts.contracts_form.more_details_btn",
+                    )
+                  }}</nuxt-link
                 >
               </div>
             </div>
@@ -102,7 +113,9 @@
 
     <!-- countries currencies  start -->
     <section class="countries_currencies">
-      <div class="title_small">Валюты стран участников взаиморасчетов</div>
+      <div class="title_small">
+        {{ $t("buisenesspage.countries_currencies.title") }}
+      </div>
       <!-- <div class="currencies_swiper d-flex align-items-center w-100">
         <div
           class="swiper_slide d-flex align-items-center"
@@ -143,18 +156,34 @@
         }"
         class="currencies_swiper mySwiper"
       >
-        <SwiperSlide
-          v-for="(slide, i) in currencies"
-          :key="i"
-          class="swiper_slide d-flex align-items-center"
-        >
-          <div class="currencies_icon">
-            {{ slide.slice(0, 1) }}
-          </div>
-          <div class="currencies_name">
-            {{ slide.slice(1, slide.length) }}
-          </div>
-        </SwiperSlide>
+        <template v-if="locales.locale == 'ru'">
+          <SwiperSlide
+            v-for="(slide, i) in currencie_ru_RU"
+            :key="i"
+            class="swiper_slide d-flex align-items-center"
+          >
+            <div class="currencies_icon">
+              {{ slide.slice(0, 1) }}
+            </div>
+            <div class="currencies_name">
+              {{ slide.slice(1, slide.length) }}
+            </div>
+          </SwiperSlide>
+        </template>
+        <template v-if="locales.locale == 'en'">
+          <SwiperSlide
+            v-for="(slide, i) in currencie_en_US"
+            :key="i"
+            class="swiper_slide d-flex align-items-center"
+          >
+            <div class="currencies_icon">
+              {{ slide.slice(0, 1) }}
+            </div>
+            <div class="currencies_name">
+              {{ slide.slice(1, slide.length) }}
+            </div>
+          </SwiperSlide>
+        </template>
       </Swiper>
     </section>
     <!-- countries currencies end -->
@@ -166,8 +195,8 @@
     <!-- about start -->
     <About
       to=""
-      page_title="Расчет взаиморасчетов по импортно-экспортным сделкам в нашем Телеграм"
-      button_content="Написать"
+      :page_title="$t('buisenesspage.aboutcompoment.page_title')"
+      :button_content="$t('buisenesspage.aboutcompoment.button_content')"
     />
     <!-- about end -->
     <!-- question answer start -->
@@ -185,7 +214,8 @@ export default {
     return {
       value: "",
       calculation: false,
-      currencies: [
+      locales: useI18n(),
+      currencie_ru_RU: [
         "€ Евро",
         "$ Доллар США",
         "¥ Китайский юань",
@@ -193,6 +223,29 @@ export default {
         "₽ Российский рубль",
         "£ Фунт стерлингов",
         "₣ Швейцарский франк",
+        "€ Евро",
+        "$ Доллар США",
+        "¥ Китайский юань",
+        "₹ Индийская рупия",
+        "₽ Российский рубль",
+        "£ Фунт стерлингов",
+        "₣ Швейцарский франк",
+      ],
+      currencie_en_US: [
+        "€ Euro",
+        "$ US Dollar",
+        "¥ Chinese Yuan",
+        "₹ Indian Rupee",
+        "₽ Russian Ruble",
+        "£ Pound Sterling",
+        "₣ Swiss Franc",
+        "€ Euro",
+        "$ US Dollar",
+        "¥ Chinese Yuan",
+        "₹ Indian Rupee",
+        "₽ Russian Ruble",
+        "£ Pound Sterling",
+        "₣ Swiss Franc",
       ],
     };
   },

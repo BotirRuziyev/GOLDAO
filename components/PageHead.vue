@@ -1,9 +1,16 @@
 <template>
   <div class="page_head">
-    <div class="main_container d-flex flex-sm-row flex-column align-items-sm-start align-items-center">
-      <button class="back_btn order-sm-1 order-2" @click="$router.go(-1)">Назад</button>
+    <div
+      class="main_container d-flex flex-sm-row flex-column align-items-sm-start align-items-center"
+    >
+      <button class="back_btn order-sm-1 order-2" @click="$router.go(-1)">
+        {{ $t("pagehead.back_btn") }}
+      </button>
       <div class="title w-100 p-0 order-sm-2 order-1">
-        Детали расчета ожидаемого дохода <span class="d-sm-inline d-none">держателя</span>
+        {{ $t("pagehead.title.title_in") }}
+        <span class="d-sm-inline d-none">{{
+          $t("pagehead.title.d_none")
+        }}</span>
       </div>
     </div>
   </div>

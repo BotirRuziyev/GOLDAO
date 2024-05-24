@@ -1,9 +1,13 @@
 <template>
   <div>
     <section class="advantages">
-      <h1 class="title">Преимущества</h1>
+      <h1 class="title">{{ $t("advantages.title") }}</h1>
       <div class="advantages_card d-grid">
-        <div class="card_item d-flex flex-column align-items-center" v-for="item of advantages" :key="item.id">
+        <div
+          class="card_item d-flex flex-column align-items-center"
+          v-for="item of advantages"
+          :key="item.id"
+        >
           <div class="card_img">
             <img height="110" :src="item.img" :alt="item.img" />
           </div>
@@ -27,25 +31,29 @@ export default {
           id: 1,
           img: "/img/index/advantages/16.png",
           head: "Юридическая безопасность ",
-          description: "все оформляется документально в соответствии с действующим законодательством",
+          description:
+            "все оформляется документально в соответствии с действующим законодательством",
         },
         {
           id: 2,
           img: "/img/index/advantages/17.png",
           head: "Защита денег от инфляции ",
-          description: "Вы получаете доход от роста стоимости драгоценного металла ",
+          description:
+            "Вы получаете доход от роста стоимости драгоценного металла ",
         },
         {
           id: 3,
           img: "/img/index/advantages/12.png",
           head: "Гарантия сохранности монет",
-          description: "Мы не передаём эмиссионные монеты третьим лицам - уникальное предложение GOLDAO",
+          description:
+            "Мы не передаём эмиссионные монеты третьим лицам - уникальное предложение GOLDAO",
         },
         {
           id: 4,
           img: "/img/index/advantages/11.png",
           head: "Моментальная ликвидность",
-          description: "Вы можете забрать монеты из хранилища по первому требованию - уникальное предложение GOLDAO",
+          description:
+            "Вы можете забрать монеты из хранилища по первому требованию - уникальное предложение GOLDAO",
         },
       ],
     };
@@ -75,8 +83,8 @@ export default {
         transform: translateY(-10px);
         .card_img {
           img {
-            filter: brightness(0) saturate(100%) invert(100%) sepia(100%) saturate(0%) hue-rotate(61deg)
-              brightness(109%) contrast(101%);
+            filter: brightness(0) saturate(100%) invert(100%) sepia(100%)
+              saturate(0%) hue-rotate(61deg) brightness(109%) contrast(101%);
           }
         }
         .card_body {

@@ -1,6 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL || 'http://localhost:8080'
+    }
+  },
   modules: [
     '@nuxt/devtools',
     "@nuxtjs/i18n",
@@ -43,22 +48,25 @@ export default defineNuxtConfig({
       useCookie: true,
       cookieKey: 'i18n_redirected'
     },
+    strategy: 'prefix_except_default',
+    langDir: 'locales',
     locales: [
       {
-        code: 'ru-RU',
-        iso: 'ru-RU',
-        name: 'Russia(RU)',
-        file: 'ru-RU.js',
-      },
-      {
-        code: 'en-US',
+        code: 'en',
         iso: 'en-US',
         name: 'English(US)',
         file: 'en-US.js',
-      }
+        isCatchallLocale: true
+      },
+      {
+        code: 'ru',
+        iso: 'ru-RU',
+        name: 'Russia(RU)',
+        file: 'ru-RU.js',
+        isCatchallLocale: true
+      },
     ],
-    langDir: 'locales/',
-    // defaultLocale: 'ru-RU',
-    strategy: 'prefix_except_default',
+    customRoutes: 'config',
+    vueI18n: './i18n.config.ts'
   }
 })

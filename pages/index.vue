@@ -13,7 +13,12 @@
           <div class="card_img text-center">
             <img :src="item.img" alt="06" />
           </div>
-          <div class="card_title">{{ item.title }}</div>
+          <div class="card_title" v-if="locale == 'ru'">
+            {{ item.title_ru_RU }}
+          </div>
+          <div class="card_title" v-if="locale == 'en'">
+            {{ item.title_en_US }}
+          </div>
         </div>
       </div>
     </section>
@@ -26,9 +31,11 @@
           class="international_settlement_in d-flex flex-column align-items-center position-relative"
         >
           <div class="head">
-            <h2 class="title">Применение GOLDAO</h2>
+            <h2 class="title">
+              {{ $t("indexpage.international_settlement.title") }}
+            </h2>
             <p class="description">
-              Международные взаиморасчеты с помощью эмиссионных монет
+              {{ $t("indexpage.international_settlement.description") }}
             </p>
           </div>
           <form
@@ -38,57 +45,73 @@
           >
             <div class="international_settlement_form_in d-grid">
               <div class="send_form">
-                <div class="form_control_head">Откуда отправить?</div>
+                <div class="form_control_head">
+                  {{ $t("indexpage.international_settlement.send_form_head") }}
+                </div>
                 <div class="form_control">
                   <form-select
                     label=""
-                    :options="[
-                      'Выберите страну',
-                      'Россия',
-                      'Узбекистан',
-                      'Америка',
-                    ]"
+                    :options="
+                      locale == 'ru'
+                        ? ['Выберите страну', 'Россия', 'Америка']
+                        : ['Choose a country', 'Russia', 'America']
+                    "
                   ></form-select>
                 </div>
                 <div class="form_control d-flex">
                   <form-input
-                    placeholder="Введите сумму"
+                    :placeholder="
+                      $t('indexpage.inputs_placeholder.enter_amount')
+                    "
                     label=""
                     value=""
                     class="w-100"
                   ></form-input>
-                  <form-select :options="['USD', 'RUB', 'UZS']"></form-select>
+                  <form-select :options="['USD', 'RUB']"></form-select>
                 </div>
               </div>
               <div class="acceptance_form">
-                <div class="form_control_head">Откуда отправить?</div>
+                <div class="form_control_head">
+                  {{
+                    $t(
+                      "indexpage.international_settlement.acceptance_form_head",
+                    )
+                  }}
+                </div>
                 <div class="form_control">
                   <form-select
                     label=""
-                    :options="[
-                      'Выберите страну',
-                      'Россия',
-                      'Узбекистан',
-                      'Америка',
-                    ]"
+                    :options="
+                      locale == 'ru'
+                        ? ['Выберите страну', 'Россия', 'Америка']
+                        : ['Choose a country', 'Russia', 'America']
+                    "
                   ></form-select>
                 </div>
                 <div class="form_control d-flex">
                   <form-input
-                    placeholder="Сумма к получению"
+                    :placeholder="
+                      $t('indexpage.inputs_placeholder.amount_received')
+                    "
                     label=""
                     value=""
                     :disabled="true"
                     class="amount_received"
                   ></form-input>
-                  <form-select :options="['USD', 'RUB', 'UZS']"></form-select>
+                  <form-select :options="['USD', 'RUB']"></form-select>
                 </div>
               </div>
             </div>
-            <button class="calculate_btn">Рассчитать</button>
+            <button class="calculate_btn">
+              {{ $t("indexpage.international_settlement.calculate_btn") }}
+            </button>
           </form>
-          <nuxt-link to="/about" class="learn_more position-relative"
-            >Узнать больше о GOLDAO</nuxt-link
+          <nuxt-link
+            :to="localePath('/about')"
+            class="learn_more position-relative"
+            >{{
+              $t("indexpage.international_settlement.learn_more")
+            }}</nuxt-link
           >
           <div class="blur position-absolute">
             <img
@@ -105,23 +128,28 @@
     <section class="business_section section" v-if="calculate">
       <div class="main_container">
         <div class="section_in">
-          <h2 class="section_title">GOLDAO для бизнеса</h2>
+          <h2 class="section_title">{{ $t("indexpage.business.title") }}</h2>
           <p class="section_description">
-            <span class="text-bold">Применяйте эмиссионные монеты</span> для
-            взаиморасчета по импортно-экспортному контракту
+            <span class="text-bold">{{
+              $t("indexpage.business.description.text_bold")
+            }}</span>
+            {{ $t("indexpage.business.description.description_in") }}
           </p>
           <div class="section_card d-grid">
             <div class="card_item" v-for="(item, i) in business" :key="i">
               <div class="card_sum">{{ item.sum }}</div>
-              <p class="card_body">
-                {{ item.description }}
+              <p class="card_body" v-if="locale == 'ru'">
+                {{ item.description_ru_RU }}
+              </p>
+              <p class="card_body" v-if="locale == 'en'">
+                {{ item.description_en_US }}
               </p>
             </div>
           </div>
           <div class="section_link text-center">
-            <nuxt-link to="/bueseness"
-              >Узнать больше о GOLDAO для бизнеса</nuxt-link
-            >
+            <nuxt-link :to="localePath('/buiseness')">
+              {{ $t("indexpage.business.link") }}
+            </nuxt-link>
           </div>
         </div>
       </div>
@@ -132,23 +160,30 @@
     <section class="about_section section" v-if="calculate">
       <div class="main_container">
         <div class="section_in">
-          <h2 class="section_title">GOLDAO для держателей монет</h2>
+          <h2 class="section_title">
+            {{ $t("indexpage.about.title") }}
+          </h2>
           <p class="section_description">
-            <span class="text-bold">Получайте доход</span> за покупку, хранение
-            и предоставление эмиссионных монет для проведения взаиморасчетов
+            <span class="text-bold">{{
+              $t("indexpage.about.description.text_bold")
+            }}</span>
+            {{ $t("indexpage.about.description.description_in") }}
           </p>
           <div class="section_card d-grid">
             <div class="card_item" v-for="(item, i) in about" :key="i">
               <div class="card_sum">{{ item.sum }}</div>
-              <p class="card_body">
-                {{ item.description }} <span>{{ item.span }}</span>
+              <p class="card_body" v-if="locale == 'ru'">
+                {{ item.description_ru_RU }} <span>{{ item.span_ru_RU }}</span>
+              </p>
+              <p class="card_body" v-if="locale == 'en'">
+                {{ item.description_en_US }} <span>{{ item.span_en_US }}</span>
               </p>
             </div>
           </div>
           <div class="section_link text-center">
-            <nuxt-link to="/holders-detali"
-              >Узнать больше о GOLDAO для владельцев монет</nuxt-link
-            >
+            <nuxt-link :to="localePath('/holders-detali')">{{
+              $t("indexpage.about.link")
+            }}</nuxt-link>
           </div>
         </div>
       </div>
@@ -159,19 +194,27 @@
     <section class="countries_application_section section" v-if="calculate">
       <div class="main_container">
         <div class="section_in">
-          <h2 class="section_title">GOLDAO в странах применения</h2>
+          <h2 class="section_title">
+            {{ $t("indexpage.application.title") }}
+          </h2>
           <div class="section_card d-grid">
             <div class="card_item" v-for="(item, i) in CApplication" :key="i">
-              <div class="card_sum">{{ item.sum }}</div>
-              <p class="card_body">
-                {{ item.description }}
+              <div class="card_sum" v-if="locale == 'ru'">
+                {{ item.sum_ru_RU }}
+              </div>
+              <div class="card_sum" v-if="locale == 'en'">
+                {{ item.sum_en_US }}
+              </div>
+              <p class="card_body" v-if="locale == 'ru'">
+                {{ item.description_ru_RU }}
+              </p>
+              <p class="card_body" v-if="locale == 'en'">
+                {{ item.description_en_US }}
               </p>
             </div>
           </div>
           <div class="section_link text-center">
-            <nuxt-link to="#"
-              >Компании-участники инфраструктуры GOLDAO</nuxt-link
-            >
+            <nuxt-link to="#">{{ $t("indexpage.application.link") }}</nuxt-link>
           </div>
         </div>
       </div>
@@ -184,94 +227,139 @@
 import FormInput from "~/components/Ul/FormInput.vue";
 import FormSelect from "~/components/Ul/FormSelect.vue";
 let calculate = ref(false);
+const { locale } = useI18n();
+let localePath = useLocalePath();
 let homecard = [
   {
     id: 1,
     img: "/img/index/03.svg",
-    title: "Анонимно",
+    title_ru_RU: "Анонимно",
+    title_en_US: "Anonymously",
   },
   {
     id: 2,
     img: "/img/index/06.svg",
-    title: "Безопасно",
+    title_ru_RU: "Безопасно",
+    title_en_US: "Safely",
   },
   {
     id: 3,
     img: "/img/index/16.svg",
-    title: "Легально",
+    title_ru_RU: "Легально",
+    title_en_US: "Legally",
   },
   {
     id: 4,
     img: "/img/index/05.svg",
-    title: "Выгодно",
+    title_ru_RU: "Выгодно",
+    title_en_US: "Profitably",
   },
 ];
 let business = [
   {
     sum: "1 000 000 RUB",
-    description: "Сумма отправления",
+    description_ru_RU: "Сумма отправления",
+    description_en_US: "Sending amount",
   },
   {
     sum: "99 670 USD",
-    description: "Сумма получения",
+    description_ru_RU: "Сумма получения",
+    description_en_US: "Receiving amount",
   },
   {
     sum: "7%",
-    description: "Комиссия с транзакции",
+    description_ru_RU: "Комиссия с транзакции",
+    description_en_US: "Transaction fee",
   },
 ];
 let about = [
   {
     sum: "65 000 RUB",
-    description: "Доход держателей от транзакции в",
-    span: "стране отправителя",
+    description_ru_RU: "Доход держателей от транзакции в",
+    description_en_US:
+      "Income of holders from transaction in the sender's country",
+    span_ru_RU: "стране отправителя",
+    span_en_US: "country of the sender",
   },
   {
     sum: "1 523 USD",
-    description: "Доход держателей от транзакции в",
-    span: "стране отправителя",
+    description_ru_RU: "Доход держателей от транзакции в",
+    description_en_US:
+      "Income of holders from transaction in the receiver's country",
+    span_ru_RU: "стране получателя",
+    span_en_US: "Country of the receiver",
   },
   {
     sum: "16%",
-    description: "Процент годовых от транзакции",
+    description_ru_RU: "Процент годовых от транзакции",
+    description_en_US: "Annual percentage rate from transaction",
   },
   {
     sum: "16%",
-    description: "Процент годовых от транзакции",
+    description_ru_RU: "Процент годовых от транзакции",
+    description_en_US: "Annual percentage rate from transaction",
   },
 ];
 let CApplication = [
   {
-    sum: "93 RUB / 1 USD",
-    description: "Курс национальной валюты",
+    sum_ru_RU: "Россия",
+    sum_en_US: "Russia",
+    description_ru_RU: "Страна отправителя",
+    description_en_US: "Sender country",
   },
   {
-    sum: "1 RUB / 0,010628 USD",
-    description: "Курс в выбранной валюте",
+    sum_ru_RU: "Австрия",
+    sum_en_US: "Austria",
+    description_ru_RU: "Страна получателя",
+    description_en_US: "Recipient country",
   },
   {
-    sum: "5 919 090 RUB",
-    description: "Цена унции золота",
+    sum_ru_RU: "93 RUB / 1 USD",
+    sum_en_US: "93 RUB / 1 USD",
+    description_ru_RU: "Курс национальной валюты",
+    description_en_US: "National currency exchange rate",
   },
   {
-    sum: "2 401,20 USD",
-    description: "Цена унции золота",
+    sum_ru_RU: "1 RUB / 0,010628 USD",
+    sum_en_US: "1 RUB / 0,010628 USD",
+    description_ru_RU: "Курс в выбранной валюте",
+    description_en_US: "Exchange rate in selected currency",
   },
   {
-    sum: "Георгий Победоносец, 30 г.",
-    description: "Название монет",
+    sum_ru_RU: "5 919 090 RUB",
+    sum_en_US: "5 919 090 RUB",
+    description_ru_RU: "Цена унции золота",
+    description_en_US: "Price of gold per ounce",
   },
   {
-    sum: "Георгий Победоносец, 30 г.",
-    description: "Название монет",
+    sum_ru_RU: "2 401,20 USD",
+    sum_en_US: "2 401,20 USD",
+    description_ru_RU: "Цена унции золота",
+    description_en_US: "Price of gold per ounce",
   },
   {
-    sum: "120 000 RUB",
-    description: "Цена монет",
+    sum_ru_RU: "Георгий Победоносец.",
+    sum_en_US: "Saint George the Victorious.",
+    description_ru_RU: "Название монет",
+    description_en_US: "Coin name",
   },
   {
-    sum: "999 USD",
-    description: "Расписки GOLDAO в обращении",
+    sum_ru_RU: "Георгий Победоносец.",
+    sum_en_US: "Saint George the Victorious.",
+    description_ru_RU: "Название монет",
+    description_en_US: "Coin name",
+  },
+  {
+    sum_ru_RU: "120 000 RUB",
+    sum_en_US: "120 000 RUB",
+    description_ru_RU: "Цена монет",
+    description_en_US: "Coin price",
+  },
+  {
+    sum_ru_RU: "999 USD",
+    sum_en_US: "999 USD",
+    description_ru_RU: "Расписки GOLDAO в обращении",
+    description_en_US: "GOLDAO promissory notes in circulation",
   },
 ];
 </script>
@@ -689,12 +777,13 @@ let CApplication = [
       .section_in {
         .section_card {
           grid-template-columns: repeat(2, 1fr);
-          // max-width: 360px;
           .card_item {
-            // left: 0 !important;
             .card_body {
               font-size: 14px;
               line-height: 107%;
+              span {
+                font-weight: 400;
+              }
             }
           }
         }
